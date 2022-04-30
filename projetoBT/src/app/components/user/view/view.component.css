@@ -1,0 +1,115 @@
+/* ::ng-deep body{
+  background: linear-gradient(179.91deg, #3CB4C4 0.08%, #1387B5 99.92%);
+} */
+
+.acessibilidade p {
+  margin-top: 0;
+}
+
+.centralizar {
+  text-align: center;
+}
+
+.acessibilidade p {
+  margin-top: 0;
+}
+
+#escuro {
+  width: 25px;
+  /* position: absolute;
+  top: 3.3%;
+  left: 93%; */
+  cursor: pointer;
+}
+
+#claro {
+  width: 25px;
+  /* position: absolute;
+  top: 3.5%;
+  left: 93%; */
+  cursor: pointer;
+  visibility: hidden;
+}
+
+nav {
+  background: #3cb4c4;
+}
+
+.link a {
+  text-align: end;
+  color: #fff;
+  padding-right: 7px;
+}
+
+.link a:hover {
+  width: 100%;
+  background: #ffffff50;
+  border-radius: 8px;
+  color: #000;
+}
+
+.cadastro-container {
+  border: 1px solid #3cb4c4;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 45px;
+}
+
+/* Curriculo */
+.linha {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.fundo {
+  background-color: #f8c100;
+}
+
+.textoCor {
+  color: black;
+}
+
+.tituloCor {
+  color: #f8c100;
+}
+
+.linhaCor {
+  background-color: white;
+}
+
+.centralizar {
+  text-align: center;
+}
+
+.ladoEsquerdo {
+  padding-left: 10px;
+}
+
+.borda {
+  border: 0.5px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#curriculo {
+  margin: auto;
+  /* width: 790px; */
+  width: 100%;
+}
+
+.navSpace {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 990px) {
+  .navSpace {
+    flex-direction: column;
+  }
+  .navSpace ul {
+    align-self: flex-end;
+  }
+}

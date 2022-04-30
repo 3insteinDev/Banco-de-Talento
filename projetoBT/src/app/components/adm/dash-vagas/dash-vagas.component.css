@@ -1,0 +1,88 @@
+/* .home_content {
+  position: absolute;
+  height: 100%;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+}
+.sidebar.active ~ .home_content {
+  width: calc(100% - 240px);
+  left: 240px;
+} */
+
+/* ********style dos cards **********/
+.hide {
+  display: none;
+}
+.fundoAzul {
+  background-color: #3cb4c4;
+}
+.fundoAmarelo {
+  background-color: #ffd646;
+}
+.botaoVisualizar {
+  background-color: #ffd746c5;
+}
+.candidatos {
+  background-color: #619db4;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+}
+.botaoVisualizar:hover {
+  background-color: #887326;
+  color: white;
+}
+.badgeFundo {
+  background-color: #ffd646;
+  color: black;
+  font-size: 14px;
+}
+.headerCard {
+  background-color: #619db4;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.cardIndividual {
+  border: 1px black solid;
+  /* border: 1px solid #d4d2d0; */
+}
+.comtainerTotal {
+  width: 90%;
+}
+.borda {
+  border: 0.5px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* @media (max-width=800px){
+  .containerTotal{
+    width: 80%;
+  }
+} */
+/* ******** fim style dos cards **********/
+
+
+.bordaCardVagas{
+  border: 1px solid gray;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.bordaBotao{
+  border: 1px solid gray;
+  border-radius: 15px;
+  background-color: #619db4;
+}
+
+.bordaBotaoVisualizar{
+  border: 1px solid gray;
+  border-radius: 15px;
+}
+
+.nCandidatos{
+  border-radius: 50%;
+  background-color: white;
+}

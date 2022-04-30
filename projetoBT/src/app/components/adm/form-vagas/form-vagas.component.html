@@ -1,0 +1,530 @@
+<!-- <app-header></app-header> -->
+<div class="form-container">
+  <h2>Cadastrar nova vaga:</h2>
+  <div class="container">
+    <form [formGroup]="form">
+      <!-- Título da Vaga - Obrigatório -->
+      <div class="row mb-3">
+        <label class="label">Título da vaga:*</label>
+        <div>
+          <input
+            type="text"
+            class="inpt"
+            id="tituloVaga"
+            name="tituloVaga"
+            formControlName="tituloVaga"
+            [class.valido]="this.form.get('tituloVaga')?.valid"
+            [class.invalido]="
+              this.form.get('tituloVaga')?.invalid &&
+              this.form.get('tituloVaga')?.touched
+            "
+          />
+        </div>
+      </div>
+
+      <!-- Código da vaga - Obrigatório-->
+      <div class="row mb-3">
+        <label class="label">Código da Vaga:</label>
+        <div>
+          <input
+            type="number"
+            class="inpt"
+            id="codigoControle"
+            formControlName="codigoControle"
+            readonly
+          />
+        </div>
+      </div>
+
+      <!-- Descrição - Obrigatório -->
+      <div class="row mb-3">
+        <label class="label">Descrição:*</label>
+        <div>
+          <textarea
+            class="txt-ar"
+            id="descricao"
+            name="descricao"
+            formControlName="descricao"
+            [class.valido]="this.form.get('descricao')?.valid"
+            [class.invalido]="
+              this.form.get('descricao')?.invalid &&
+              this.form.get('descricao')?.touched
+            "
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Tipo de Contratação - Obrigatório -->
+      <div class="row mb-3">
+        <label class="label">Tipo de contratação:*</label>
+        <div class="radio-container">
+          <div>
+            <!-- Radio - Trabalho Remoto -->
+            <input
+              type="radio"
+              id="remoto"
+              value="trabalho remoto"
+              name="tipoContratacao"
+              formControlName="tipoContratacao"
+              class="m-2"
+              [class.valido]="this.form.get('tipoContratacao')?.valid"
+              [class.invalido]="
+                this.form.get('tipoContratacao')?.invalid &&
+                this.form.get('tipoContratacao')?.touched
+              "
+            />
+            <label class="label" for="tipoContratacao"> Trabalho Remoto</label>
+          </div>
+          <!-- Radio - Trabalho Presencial - Obrigatório -->
+          <div>
+            <input
+              type="radio"
+              id="presencial"
+              value="trabalho presencial"
+              name="tipoContratacao"
+              formControlName="tipoContratacao"
+              class="m-2"
+            />
+            <label class="label" for="tipoContratacao"
+              >Trabalho Presencial</label
+            >
+          </div>
+          <!-- Radio - Trabalho Híbrido -->
+          <div>
+            <input
+              type="radio"
+              id="hibrido"
+              value="trabalho híbrido"
+              name="tipoContratacao"
+              formControlName="tipoContratacao"
+              class="m-2"
+            />
+            <label class="label" for="hibrido"> Trabalho Híbrido</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vínculo Empregatício - Opcional -->
+      <div class="row mb-3">
+        <label class="label mgb">Vínculo empregatício:</label>
+        <div class="radio-container">
+          <!-- Radio - CTL -->
+          <div>
+            <div>
+              <input
+                type="radio"
+                id="clt"
+                value="CLT"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> CLT</label>
+            </div>
+
+            <!-- Radio - Pessoa Jurídica -->
+            <div>
+              <input
+                type="radio"
+                id="pj"
+                value="PESSOA JURÍDICA"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo">Pessoa Jurídica</label>
+            </div>
+
+            <!-- Radio - Contratação Temporária -->
+            <div>
+              <input
+                type="radio"
+                id="temporario"
+                value="TEMPORÁRIO"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Contratação temporária</label>
+            </div>
+            <!-- Radio - Trabalho Parcial -->
+            <div>
+              <input
+                type="radio"
+                id="tParcial"
+                value="TRABALHO PARCIAL"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Trabalho Parcial</label>
+            </div>
+
+            <!-- Radio - Estágio -->
+            <div>
+              <input
+                type="radio"
+                id="estagio"
+                value="ESTÁGIO"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Estágio </label>
+            </div>
+
+            <!-- Radio - Jovem Aprendiz -->
+            <div>
+              <input
+                type="radio"
+                id="jovAprendiz"
+                value="JOVEM APRENDIZ"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Jovem Aprendiz</label>
+            </div>
+
+            <!-- Radio - Tercerizado -->
+            <div>
+              <input
+                type="radio"
+                id="tercerizado"
+                value="TERCEIRIZADO"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Tercerizado</label>
+            </div>
+
+            <!-- Radio - Trabalho Voluntário -->
+            <div>
+              <input
+                type="radio"
+                id="voluntario"
+                value="TRABALHO VOLUNTÁRIO"
+                name="vinculo"
+                formControlName="vinculo"
+                class="m-2"
+              />
+              <label class="label" for="vinculo"> Trabalho Voluntário</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horário Laboral - Opcional -->
+      <div class="row mb-3">
+        <label class="label">Horário Laboral:</label>
+        <div>
+          <input
+            type="time"
+            class="inpt"
+            formControlName="jornada_Inicio"
+            name="jornada"
+          />
+          <input
+            type="time"
+            class="inpt"
+            formControlName="jornada_Fim"
+            name="jornada"
+          />
+        </div>
+      </div>
+
+      <!-- Endereço Laboral - Opcional-->
+      <div class="row mb-3">
+        <label class="label">Endereço Laboral:</label>
+        <div>
+          <input
+            type="text"
+            class="inpt"
+            id="localizacao"
+            formControlName="localizacao"
+            name="localizacao"
+          />
+        </div>
+      </div>
+
+      <!-- Principais Responsabilidade do Contratado - Obrigatório -->
+      <div class="row mb-3">
+        <label class="label"
+          >Principais Responsabilidades do Contratado:*</label
+        >
+        <div>
+          <textarea
+            class="txt-ar"
+            id="responsabilidades"
+            name="responsabilidades"
+            formControlName="responsabilidades"
+            [class.valido]="this.form.get('responsabilidades')?.valid"
+            [class.invalido]="
+              this.form.get('responsabilidades')?.invalid &&
+              this.form.get('responsabilidades')?.touched
+            "
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <!-- Frameworks - Opcional -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <label class="label mgb" for="frameworks">Frameworks</label>
+
+          <!-- CheckBox Frameworks - FormControl -->
+          <div id="frameworks" class="row">
+            <div
+              class="checkbox"
+              formArrayName="frameworks"
+              *ngFor="let item of getFrameworksControls(); let i = index"
+            >
+              <!-- Cada opção individual de framework -->
+              <div>
+                <label class="checkbox-inline label">
+                  <input type="checkbox" [formControlName]="i" />
+                  {{ frameworks[i] }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CheckBox Linguagens - FormControl -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <label class="label mgb" for="linguagens">Linguagens</label>
+          <div id="linguagens" class="row">
+            <div
+              class="checkbox"
+              formArrayName="linguagens"
+              *ngFor="let item of getLinguagensControls(); let i = index"
+            >
+              <!-- Cada opção individual de framework -->
+              <label class="checkbox-inline label">
+                <input type="checkbox" [formControlName]="i" />
+                {{ linguagens[i] }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CheckBox Tecnologias - FormControl -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <label class="label mgb" for="tecnologias">Tecnologias</label>
+          <div id="tecnologias" class="row">
+            <div
+              class="checkbox"
+              formArrayName="tecnologias"
+              *ngFor="let item of getTecnologiasControls(); let i = index"
+            >
+              <!-- Cada opção individual de framework -->
+              <label class="checkbox-inline label">
+                <input type="checkbox" [formControlName]="i" />
+                {{ tecnologias[i] }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CheckBox Idiomas - FormControl -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <label class="label mgb" for="idiomas">Idiomas</label>
+          <div id="linguagens" class="row">
+            <div
+              class="checkbox"
+              formArrayName="idiomas"
+              *ngFor="let item of getIdiomasControls(); let i = index"
+            >
+              <!-- Cada opção individual de framework -->
+              <label class="checkbox-inline label">
+                <input type="checkbox" [formControlName]="i" /> {{ idiomas[i] }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Requisitos Desejáveis - Opcional -->
+      <div class="row mb-3">
+        <label class="label">Requisitos desejáveis (Não eliminatório):</label>
+        <div>
+          <textarea
+            class="txt-ar"
+            id="reqDesejaveis"
+            name="reqDesejaveis"
+            formControlName="reqDesejaveis"
+          ></textarea>
+        </div>
+      </div>
+      <!-- Area de Interesse - Opcional -->
+      <div>
+        <label class="label" for="areaInteresse">Área de Interesse:* </label>
+        <select
+          name="areaInteresse"
+          formControlName="areaInteresse"
+          class="form-control"
+          id="areaInteresse"
+          [class.valido]="this.form.get('areaInteresse')?.valid"
+          [class.invalido]="
+            this.form.get('areaInteresse')?.invalid &&
+            this.form.get('areaInteresse')?.touched
+          "
+        >
+          <option name="areaInteresse" value="">Selecione</option>
+          <option name="areaInteresse" value="indiferente">Indiferente</option>
+          <option name="areaInteresse" value="setor administrativo">
+            Setor Administrativo
+          </option>
+          <option name="areaInteresse" value="setor de artes e design">
+            Setor de Artes e Design
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor de ciências biológicas e da terra"
+            disabled="disabled"
+          >
+            Setor de Ciências Biológicas e da Terra
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor de ciências sociais e humanas"
+            disabled="disabled"
+          >
+            Setor de Ciências Sociais e Humanas
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor de comunicação e informação"
+          >
+            Setor de Comunicação e Informação
+          </option>
+          <option name="areaInteresse" value="setor comercial">
+            Setor Comercial
+          </option>
+          <option name="areaInteresse" value="setor conteúdo">
+            Setor Conteúdo
+          </option>
+          <option name="areaInteresse" value="setor customer success">
+            Setor Customer Success
+          </option>
+          <option name="areaInteresse" value="setor design e ux">
+            Setor Design e UX
+          </option>
+          <option name="areaInteresse" value="setor educacional">
+            Setor Educacional
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor de engenharia"
+            disabled="disabled"
+          >
+            Setor de Engenharia
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor especializado em prestação de serviços"
+          >
+            Setor Especializado em Prestação de Serviços
+          </option>
+          <option name="areaInteresse" value="setor de finanças">
+            Setor de Finanças
+          </option>
+          <option name="areaInteresse" value="setor jurídico">
+            Setor Jurídico
+          </option>
+          <option name="areaInteresse" value="setor logístico">
+            Setor Logístico
+          </option>
+          <option name="areaInteresse" value="setor de marketing">
+            Setor de Marketing
+          </option>
+          <option name="areaInteresse" value="setor de negócios">
+            Setor de Negócios
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor de produção"
+            disabled="disabled"
+          >
+            Setor de Produção
+          </option>
+          <option name="areaInteresse" value="setor de recursos humanos">
+            Setor de Recursos Humanos
+          </option>
+          <option
+            name="areaInteresse"
+            value="setor da saúde"
+            disabled="disabled"
+          >
+            Setor da Saúde
+          </option>
+          <option name="areaInteresse" value="setor de tecnologia">
+            Setor de Tecnologia
+          </option>
+        </select>
+      </div>
+
+      <!-- Data de Criação da Vaga - Preenchido pelo sistema
+          <!-- Data de Atualização da Vaga - Preenchido pelo sistema-->
+      <!-- Data de Contratação do Candidato - Preenchido pelo sistema-->
+
+      <!-- Botão Salvar -->
+      <div class="btn-div">
+        <button [disabled]="!form.valid" class="svbtn" (click)="salvarVaga()">
+          Salvar
+        </button>
+      </div>
+    </form>
+
+    <!-- Modal para Cadastro de Vaga -->
+    <ng-template #incluirVaga>
+      <div class="p-3">
+        <div class="modal-header">
+          <h4 class="modal-title">Aviso</h4>
+        </div>
+
+        <div class="modal-body modalText p-3">
+          <p class="fs-6">Registro incluído com sucesso!</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-around p-2">
+          <button
+            type="button"
+            class="btn btn-primary btn-md p-2"
+            (click)="confirmaInclusao()"
+          >
+            Fechar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-md p-2"
+            (click)="novaVaga()"
+          >
+            Nova Vaga
+          </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Modal para Edição de Vaga -->
+    <ng-template #atualizarVaga>
+      <div class="p-3">
+        <div class="modal-header">
+          <h4 class="modal-title">Aviso</h4>
+        </div>
+        <div class="modal-body modalText p-3">
+          <p class="fs-6">Registro atualizado com sucesso!</p>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-center p-2">
+          <button
+            type="button"
+            class="btn btn-primary btn-md p-2"
+            (click)="confirmaAtualizacao()"
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

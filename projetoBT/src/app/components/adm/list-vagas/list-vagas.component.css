@@ -1,0 +1,49 @@
+.hide{
+  display: none;
+}
+.fundoAzul{
+  background-color: #3CB4C4;
+}
+.fundoAmarelo{
+  background-color: #FFD646;
+
+}
+.botaoEditar{
+  background-color: #3cc4b9a1;
+}
+.botaoExcluir{
+  background-color: #c4573ca1;
+}
+.botaoEditar:hover{
+  background-color: #1d5f5a;
+  color:white;
+}
+.botaoExcluir:hover{
+  background-color: #7a3726;
+  color: white;
+}
+.headerCard{
+  background-color: #619db4;
+  color: white;
+}
+.cardIndividual{
+  border: 1px black solid;
+  /* border: 1px solid #d4d2d0; */
+}
+
+.bordaSuperior{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.bordaInferiorEsquerda{
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 0px;
+}
+
+.bordaInferiorDireita{
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 0px;
+}
+
+

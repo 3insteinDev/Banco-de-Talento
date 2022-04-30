@@ -1,0 +1,262 @@
+<!-- <app-sidebar-menu></app-sidebar-menu> -->
+<app-header></app-header>
+<div class="d-flex justify-content-around container my-4">
+  <button
+    (click)="voltarPagina()"
+    class="btn btn-outline-dark d-flex align-items-center"
+  >
+    <span class="fas fa-arrow-circle-left"></span> Voltar
+  </button>
+  <h2>Currículo do Candidato</h2>
+
+  <button class="btn btn-warning" (click)="saveCurriculo()">
+    <span class="fas fa-file-download"></span>
+    Gerar PDF
+  </button>
+</div>
+<div class="container card" style="width: 75vw">
+  <!--------------------------------- Exibição do curriculo Admin ----------------------->
+  <!-- <ng-template #viewCurriculo> -->
+  <div class="ladoEsquerdo" id="curriculo">
+    <!-- <div id="curriculo" class="container borda"> -->
+    <div class="row">
+      <div class="col-4 linha fundo">
+        <!------------------------- Contatos ------------------------------->
+        <div class="">
+          <h5 class="fundo textoCor mt-5"><u>CONTATO</u></h5>
+          <br />
+          <!-- Telefone -->
+          <p class="textoCor">
+            <b>Telefone: </b>{{ user.curriculo?.contato?.telefone }}
+            <a
+              href="https://api.whatsapp.com/send?phone=55{{
+                user.curriculo?.contato?.telefone
+              }}&text=Ol%C3%A1%2C%20sou%20representante%20da%20SoulCode%20Jobs.%20Podemos%20conversar%3F%20Atenciosamente%2C%20Thamires."
+              target="_blank"
+              class="fab fa-whatsapp fs-4 text-decoration-none"
+              style="color: white"
+            ></a>
+          </p>
+
+          <!-- Email -->
+          <p class="textoCor"><b>E-mail: </b>{{ user.email }}</p>
+
+          <!-- Linkedin -->
+          <p class="textoCor">
+            <b>Linkedin: </b>{{ user.curriculo?.contato?.linkedin }}
+          </p>
+
+          <!-- Portifólio -->
+          <p class="textoCor">
+            <b>Portifólio: </b>{{ user.curriculo?.contato?.portfolio }}
+          </p>
+        </div>
+        <hr class="linhaCor" />
+        <div class="">
+          <!--------------------------- Dados Pessoais --------------------------->
+          <h5 class="fundo textoCor"><u>DADOS PESSOAIS</u></h5>
+          <br />
+          <!-- Estado Civil -->
+          <p class="textoCor">
+            <b>Estado Civil: </b>{{ user.curriculo?.dados?.estadoCivil }}
+          </p>
+
+          <!-- Nacionalidade -->
+          <p class="textoCor">
+            <b>Nacionalidade: </b>{{ user.curriculo?.dados?.nacionalidade }}
+          </p>
+
+          <!-- Data de Nascimento -->
+          <p class="textoCor">
+            <b>Data de Nascimento: </b
+            >{{ user.curriculo?.dados?.dataNascimento | date: "dd/MM/yyyy" }}
+          </p>
+
+          <!-- CPF -->
+          <p class="textoCor"><b>CPF: </b>{{ user.curriculo?.dados?.cpf }}</p>
+
+          <!-- CEP -->
+          <p class="textoCor"><b>CEP: </b>{{ user.curriculo?.dados?.cep }}</p>
+        </div>
+
+        <!------------------------ Diversidade ---------------------------->
+        <p></p>
+        <hr class="linhaCor" />
+        <h5 class="fundo textoCor"><u>DIVERSIDADE</u></h5>
+        <br />
+        <p class="textoCor">
+          <b>Raça: </b>{{ user?.curriculo?.diversidade?.raca }}
+        </p>
+        <p class="textoCor">
+          <b>Pronome: </b>{{ user?.curriculo?.diversidade?.pronome }}
+        </p>
+        <p class="textoCor">
+          <b>Orientação: </b>{{ user?.curriculo?.diversidade?.orientacao }}
+        </p>
+        <p class="textoCor">
+          <b>Gênero: </b>{{ user?.curriculo?.diversidade?.genero }}
+        </p>
+        <p class="textoCor">
+          <b>Deficiência: </b>{{ user?.curriculo?.diversidade?.deficiencia }}
+        </p>
+      </div>
+
+      <!--------------------------------- Lado direito do Curriculo --------------------------------->
+      <div class="col-8 linha px-4">
+        <!-- Nome e Sobrenome -->
+        <h2 class="centralizar mt-5">
+          <p class="tituloCor">
+            <strong
+              >{{ user.curriculo?.dados?.nome }}
+              {{ user.curriculo?.dados?.sobrenome }}</strong
+            >
+          </p>
+        </h2>
+
+        <!-- Área de Interesse -->
+        <div class="row">
+          <div class="col-6">
+            <b>Área de Atuação: </b>{{ user.curriculo?.objetivos?.areaAtuacao }}
+          </div>
+          <div class="col-6">
+            <b>Indicação: </b>{{ user.curriculo?.objetivos?.indicacao }}
+          </div>
+        </div>
+
+        <br />
+        <div class="row">
+          <div class="col-6">
+            <b>Área de Interesse: </b><br />{{
+              user.curriculo?.objetivos?.areaInteresse
+            }}
+          </div>
+          <div class="col-6">
+            <b>Pretensão Salarial: </b><br />{{
+              user.curriculo?.objetivos?.pretensao | currency: "BRL"
+            }}
+          </div>
+        </div>
+
+        <hr />
+        <!-- Formação -->
+        <p>
+          <b><u>Formação</u></b>
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <!-- Curso -->
+            <p><b>Curso: </b><br />{{ user?.curriculo?.formacao?.curso }}</p>
+          </div>
+          <div class="col-3">
+            <!-- Instituição -->
+            <p>
+              <b>Instituição: </b><br />{{
+                user?.curriculo?.formacao?.instituicao
+              }}
+            </p>
+          </div>
+          <div class="col-3">
+            <p><b>Status: </b><br />{{ user?.curriculo?.formacao?.status }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Grau -->
+          <div class="col-3">
+            <p><b>Grau: </b><br />{{ user?.curriculo?.formacao?.grau }}</p>
+          </div>
+
+          <!-- Nível -->
+          <div class="col-3">
+            <p><b>Nível: </b><br />{{ user?.curriculo?.formacao?.nivel }}</p>
+          </div>
+
+          <div class="col-3">
+            <p>
+              <b>Início: </b><br />{{
+                user?.curriculo?.formacao?.inicio | date: "dd/MM/yyyy"
+              }}
+            </p>
+          </div>
+          <div class="col-3">
+            <p>
+              <b>Fim: </b><br />{{
+                user?.curriculo?.formacao?.fim | date: "dd/MM/yyyy"
+              }}
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p><b>Idiomas: </b>{{ user?.curriculo?.competencia?.idiomas }}</p>
+        </div>
+
+        <div class="row">
+          <p>
+            <b>Frameworks: </b>{{ user?.curriculo?.competencia?.frameworks }}
+          </p>
+        </div>
+
+        <div class="row">
+          <p>
+            <b>Linguagens: </b>{{ user?.curriculo?.competencia?.linguagens }}
+          </p>
+        </div>
+
+        <div class="row">
+          <p>
+            <b>Tecnologias: </b
+            >{{ user?.curriculo?.competencia?.tecnologias }}
+          </p>
+        </div>
+        <hr />
+        <!------------------------ Experiência Profissional ---------------------------->
+        <p>
+          <b><u>Experiência Profissional</u></b>
+        </p>
+
+        <!-- Empresa -->
+        <div class="row">
+          <div class="col-6">
+            <p>
+              <b>Empresa: </b><br />{{ user?.curriculo?.experiencia?.empresa }}
+            </p>
+          </div>
+
+          <div class="col-3">
+            <p>
+              <b>Início: </b><br />{{
+                user?.curriculo?.experiencia?.inicio | date: "dd/MM/yyyy"
+              }}
+            </p>
+          </div>
+          <div class="col-3">
+            <p>
+              <b>Fim: </b><br />{{
+                user?.curriculo?.experiencia?.fim | date: "dd/MM/yyyy"
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Cargo -->
+          <div class="col-3">
+            <p><b>Cargo: </b><br />{{ user?.curriculo?.experiencia?.cargo }}</p>
+          </div>
+
+       
+
+          <!-- Descrição das Atividades -->
+          <div class="col-6">
+            <p><b>Atividades desenvolvidas: </b><br />{{user?.curriculo?.experiencia?.descricao}}</p>
+          </div>
+
+           <!-- <div class="html2pdf__page-break"></div> -->
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+.acessibilidade p {
+  margin-top: 0;
+}
+
+#escuro {
+  width: 25px;
+  /* position: absolute;
+  top: 3.3%;
+  left: 93%; */
+  cursor: pointer;
+}
+
+#claro {
+  width: 25px;
+  /* position: absolute;
+  top: 3.5%;
+  left: 93%; */
+  cursor: pointer;
+  visibility: hidden;
+}
+
+nav {
+  background: #3cb4c4;
+}
+
+.link a {
+  text-align: end;
+  color: #fff;
+  padding-right: 7px;
+}
+
+.link a:hover {
+  width: 100%;
+  background: #ffffff50;
+  border-radius: 8px;
+  color: #000;
+}
+
+.logOut {
+  cursor: pointer;
+}
+
+.logOut:hover {
+  color: white;
+}
+
+.navSpace {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 990px) {
+  .navSpace {
+    flex-direction: column;
+  }
+  .navSpace ul {
+    align-self: flex-end;
+  }
+}

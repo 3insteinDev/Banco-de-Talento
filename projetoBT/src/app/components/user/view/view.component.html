@@ -1,0 +1,475 @@
+<div *ngIf="auth.user | async as user">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand logo" href="#"
+          ><img
+            style="height: 40px"
+            src="../../../assets/img/sj-logo_2.svg"
+            alt=""
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse navSpace"
+          id="navbarNav"
+          *ngIf="!user.roles.admin; else admin"
+        >
+          <ul class="navbar-nav">
+            <!-- COMUM AOS DOIS -->
+            <li class="nav-item link">
+              <a class="nav-link" aria-current="page" routerLink="/">Início</a>
+            </li>
+            <!-- COMEÇO USUÁRIO -->
+            <li class="nav-item link">
+              <a class="nav-link" routerLink="/user/view">Meu Currículo</a>
+            </li>
+            <li class="nav-item link">
+              <a class="nav-link" routerLink="/user/edit">Editar Currículo</a>
+            </li>
+            <!-- FIM USUÁRIO -->
+          </ul>
+          <div class="d-flex align-items-center flex-column">
+            <div>{{ user.email }}</div>
+            <div
+              class="d-flex align-items-center logOut"
+              (click)="auth.signOut()"
+            >
+              <span>Sair </span>
+              <span class="bx bx-log-out fs-4"></span>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #admin>
+          <div class="collapse navbar-collapse navSpace" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- COMUM AOS DOIS -->
+              <li class="nav-item link">
+                <a class="nav-link" aria-current="page" routerLink="/"
+                  >Início</a
+                >
+              </li>
+
+              <!-- COMEÇO ADMIN -->
+              <li class="nav-item link">
+                <a class="nav-link" routerLink="/adm/dash/vagas"
+                  >Candidaturas</a
+                >
+              </li>
+              <li class="nav-item link">
+                <a class="nav-link" routerLink="/adm/viewVagas">Vagas</a>
+              </li>
+
+              <li class="nav-item link">
+                <a class="nav-link" routerLink="/adm/listUser"
+                  >Buscar Candidato</a
+                >
+              </li>
+              <li class="nav-item link">
+                <a class="nav-link" routerLink="/adm/dash/superAdmin"
+                  >Gerir Administradores</a
+                >
+              </li>
+            </ul>
+            <div class="d-flex align-items-center flex-column">
+              <div>{{ user.email }}</div>
+              <div
+                class="d-flex align-items-center logOut"
+                (click)="auth.signOut()"
+              >
+                <span>Sair </span>
+                <span class="bx bx-log-out fs-4"></span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </nav>
+  </header>
+
+  <div *ngIf="user.cadastroAtivo == true; else ativar">
+    <div class="container mb-5">
+      <!-- se o curriculo estiver ativo aparece uma coisa, se não, aparece outra -->
+      <div
+        *ngIf="user.curriculoAtivo == false; else viewCurriculo"
+        class="cadastro-container"
+      >
+        <h3 class="text-center">Currículo não preenchido</h3>
+        <p>
+          A visualização de seu currículo estará disponível após a conclusão do
+          cadastro.
+        </p>
+        <button class="btn btn-outline-dark" (click)="editCurriculo()">
+          Finalizar Cadastro
+        </button>
+      </div>
+    </div>
+    <!--------------------------------- Exibição do curriculo Candidato ----------------------->
+
+    <ng-template #viewCurriculo>
+      <div class="mt-3">
+        <h2 class="text-center">Meu Currículo</h2>
+        <div class="m-3 p-2">
+          <!-- {{ user | json }} -->
+          <div class="d-flex justify-content-around">
+            <button class="btn btn-outline-danger" (click)="arquivaCadastro()">
+              Desativar currículo
+            </button>
+            <button class="btn btn-outline-dark" (click)="editCurriculo()">
+              Editar
+            </button>
+            <button class="btn btn-warning" (click)="saveCurriculo()">
+              <span class="fas fa-file-download"></span>
+              Gerar PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ladoEsquerdo" id="curriculo">
+        <!-- <div id="curriculo" class="container borda"> -->
+        <div class="row">
+          <div class="col-3 linha fundo">
+            <!------------------------- Contatos ------------------------------->
+            <div class="">
+              <h5 class="fundo textoCor mt-5"><u>CONTATO</u></h5>
+              <br />
+              <!-- Telefone -->
+              <p class="textoCor">
+                <b>Telefone: </b>{{ user.curriculo?.contato?.telefone }}
+              </p>
+
+              <!-- Email -->
+              <p class="textoCor"><b>E-mail: </b>{{ user.email }}</p>
+
+              <!-- Linkedin -->
+              <p class="textoCor">
+                <b>Linkedin: </b>{{ user.curriculo?.contato?.linkedin }}
+              </p>
+
+              <!-- Portifólio -->
+              <p class="textoCor">
+                <b>Portifólio: </b>{{ user.curriculo?.contato?.portfolio }}
+              </p>
+            </div>
+            <hr class="linhaCor" />
+            <div class="">
+              <!--------------------------- Dados Pessoais --------------------------->
+              <h5 class="fundo textoCor"><u>DADOS PESSOAIS</u></h5>
+              <br />
+              <!-- Estado Civil -->
+              <p class="textoCor">
+                <b>Estado Civil: </b>{{ user.curriculo?.dados?.estadoCivil }}
+              </p>
+
+              <!-- Nacionalidade -->
+              <p class="textoCor">
+                <b>Nacionalidade: </b>{{ user.curriculo?.dados?.nacionalidade }}
+              </p>
+
+              <!-- Data de Nascimento -->
+              <p class="textoCor">
+                <b>Data de Nascimento: </b
+                >{{
+                  user.curriculo?.dados?.dataNascimento | date: "dd/MM/yyyy"
+                }}
+              </p>
+
+              <!-- CPF -->
+              <p class="textoCor">
+                <b>CPF: </b>{{ user.curriculo?.dados?.cpf }}
+              </p>
+
+              <!-- CEP -->
+              <p class="textoCor">
+                <b>CEP: </b>{{ user.curriculo?.dados?.cep }}
+              </p>
+            </div>
+
+            <!------------------------ Diversidade ---------------------------->
+            <p></p>
+            <hr class="linhaCor" />
+            <h5 class="fundo textoCor"><u>DIVERSIDADE</u></h5>
+            <br />
+            <p class="textoCor">
+              <b>Raça: </b>{{ user?.curriculo?.diversidade?.raca }}
+            </p>
+            <p class="textoCor">
+              <b>Pronome: </b>{{ user?.curriculo?.diversidade?.pronome }}
+            </p>
+            <p class="textoCor">
+              <b>Orientação: </b>{{ user?.curriculo?.diversidade?.orientacao }}
+            </p>
+            <p class="textoCor">
+              <b>Gênero: </b>{{ user?.curriculo?.diversidade?.genero }}
+            </p>
+            <p class="textoCor">
+              <b>Deficiência: </b
+              >{{ user?.curriculo?.diversidade?.deficiencia }}
+            </p>
+          </div>
+
+          <!--------------------------------- Lado direito do Curriculo --------------------------------->
+          <div class="col-9 linha px-4">
+            <!-- Nome e Sobrenome -->
+            <h2 class="centralizar mt-5">
+              <p class="tituloCor">
+                <strong
+                  >{{ user.curriculo?.dados?.nome }}
+                  {{ user.curriculo?.dados?.sobrenome }}</strong
+                >
+              </p>
+            </h2>
+
+            <!-- Área de Interesse -->
+            <div class="row">
+              <div class="col-6">
+                <b>Área de Atuação: </b
+                >{{ user.curriculo?.objetivos?.areaAtuacao }}
+              </div>
+              <div class="col-6">
+                <b>Indicação: </b>{{ user.curriculo?.objetivos?.indicacao }}
+              </div>
+            </div>
+
+            <br />
+            <div class="row">
+              <div class="col-6">
+                <b>Área de Interesse: </b><br />{{
+                  user.curriculo?.objetivos?.areaInteresse
+                }}
+              </div>
+              <div class="col-6">
+                <b>Pretensão Salarial: </b><br />{{
+                  user.curriculo?.objetivos?.pretensao | currency: "BRL"
+                }}
+              </div>
+            </div>
+
+            <hr />
+            <!-- Formação -->
+            <p>
+              <b><u>Formação</u></b>
+            </p>
+            <div class="row">
+              <div class="col-6">
+                <!-- Curso -->
+                <p>
+                  <b>Curso: </b><br />{{ user?.curriculo?.formacao?.curso }}
+                </p>
+              </div>
+              <div class="col-3">
+                <!-- Instituição -->
+                <p>
+                  <b>Instituição: </b><br />{{
+                    user?.curriculo?.formacao?.instituicao
+                  }}
+                </p>
+              </div>
+              <div class="col-3">
+                <p>
+                  <b>Status: </b><br />{{ user?.curriculo?.formacao?.status }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Grau -->
+              <div class="col-3">
+                <p><b>Grau: </b><br />{{ user?.curriculo?.formacao?.grau }}</p>
+              </div>
+
+              <!-- Nível -->
+              <div class="col-3">
+                <p>
+                  <b>Nível: </b><br />{{ user?.curriculo?.formacao?.nivel }}
+                </p>
+              </div>
+
+              <div class="col-3">
+                <p>
+                  <b>Início: </b><br />{{
+                    user?.curriculo?.formacao?.inicio | date: "dd/MM/yyyy"
+                  }}
+                </p>
+              </div>
+              <div class="col-3">
+                <p>
+                  <b>Fim: </b><br />{{
+                    user?.curriculo?.formacao?.fim | date: "dd/MM/yyyy"
+                  }}
+                </p>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <p><b>Idiomas: </b>{{ user?.curriculo?.competencia?.idiomas }}</p>
+            </div>
+
+            <div class="row">
+              <p>
+                <b>Frameworks: </b
+                >{{ user?.curriculo?.competencia?.frameworks }}
+              </p>
+            </div>
+
+            <div class="row">
+              <p>
+                <b>Linguagens: </b
+                >{{ user?.curriculo?.competencia?.linguagens }}
+              </p>
+            </div>
+
+            <div class="row">
+              <p>
+                <b>Tecnologias: </b
+                >{{ user?.curriculo?.competencia?.tecnologias }}
+              </p>
+            </div>
+            <hr />
+            <!------------------------ Experiência Profissional ---------------------------->
+            <div class="row">
+              <div class="col-6">
+                <b><u>Experiência Profissional</u></b>
+              </div>
+              <div class="col-3">
+                <p>
+                  <b>Início: </b><br />{{
+                    user?.curriculo?.experiencia?.inicio | date: "dd/MM/yyyy"
+                  }}
+                </p>
+              </div>
+              <div class="col-3">
+                <p>
+                  <b>Fim: </b><br />{{
+                    user?.curriculo?.experiencia?.fim | date: "dd/MM/yyyy"
+                  }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Empresa -->
+            <div class="row">
+              <div class="col-6">
+                <p>
+                  <b>Empresa: </b><br />{{
+                    user?.curriculo?.experiencia?.empresa
+                  }}
+                </p>
+              </div>
+              <!-- Cargo -->
+              <div class="col-6">
+                <p>
+                  <b>Cargo: </b><br />{{ user?.curriculo?.experiencia?.cargo }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Experiências -->
+              <!-- <div class="col-3">
+                <p>
+                  <b>Experiências: </b><br />{{
+                    user?.curriculo?.experiencia?.experiencia
+                  }}
+                </p>
+              </div> -->
+
+              <!-- Descrição das Atividades -->
+              <div class="col-12">
+                <p>
+                  <b>Atividades desenvolvidas: </b><br />{{
+                    user?.curriculo?.experiencia?.descricao
+                  }}
+                </p>
+              </div>
+
+              <!-- <div class="html2pdf__page-break"></div> -->
+            </div>
+
+            <!-- </ng-template> -->
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #ativar>
+  <button class="btn btn-outline-dark" (click)="desarquivaCadastro()">
+    Ativar currículo
+  </button>
+</ng-template>
+<app-footer></app-footer>
+<!-- ///////////////////////---------------------Inicio Modais-----------------------////////////////////////// -->
+
+<!-- Modal A -->
+<ng-template #modal_A>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_A }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelaModal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_A()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal B -->
+<ng-template #modal_B>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_A }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelaModal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_B()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- ///////////////////////---------------------Fim Modais-----------------------////////////////////////// -->

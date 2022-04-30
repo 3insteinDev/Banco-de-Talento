@@ -1,0 +1,111 @@
+ /* ::ng-deep body{
+  background: linear-gradient(179.91deg, #3CB4C4 0.08%, #1387B5 99.92%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+::ng-deep html{
+  padding-bottom: 500px;
+} */
+
+
+.valido {
+border-color: green;
+}
+
+
+.invalido {
+border-color: red;
+}
+
+.linha{
+  border: 1px solid black;
+}
+
+.form-container{
+  background: #fff;
+  border: 1px solid #1387B5;
+  padding: 50px;
+}
+
+.label{
+  color: #828694;
+  font-size: 15px;
+}
+
+.inpt{
+  background: #F5F8FA;
+  border: 1px solid #D3E2E5;
+  border-radius: 12px;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+
+.txt-ar{
+  background: #F5F8FA;
+  border: 1px solid #D3E2E5;
+  border-radius: 12px;
+  width: 100%;
+  resize: none;
+  height: 250px;
+  padding: 10px;
+  margin-bottom: 25px;
+
+}
+
+.radio-container{
+  /* margin-top: 500px; */
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin-bottom: 25px;
+}
+
+.mgb{
+  margin-bottom: 20px;
+}
+
+.svbtn{
+  border: none;
+  height: 3rem;
+  width: 5rem;
+  background: #3DB248;
+  border: 1px solid #2C9B37;
+  border-radius: 12px;
+  transition: 0.25s all ease;
+  color: #fff;
+}
+
+.svbtn:hover{
+  background: #59C964;
+}
+
+.btn-div{
+  margin-top: 23px;
+  display: flex;
+  justify-content: center;
+}
+
+h2{
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-decoration: underline;
+}
+
+@media(min-width:991px){
+  body{
+      background-color: #3CB4C4!important;
+  }
+  .form-container{
+      margin: 100px auto;
+      background: #fff;
+      max-width: 980px;
+      /* margin: auto; */
+  }
+
+  .label{
+      font-size: 16px;
+  }
+}

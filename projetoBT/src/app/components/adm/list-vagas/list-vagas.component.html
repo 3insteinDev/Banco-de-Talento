@@ -1,0 +1,104 @@
+<div class="container">
+
+  <div class="row justify-content-center">
+      <div class="card col-md-5 col-sm-12 m-2 p-0 cardIndividual borda" *ngFor="let vaga of vagas">
+          <h4 class="card-header headerCard text-center bordaSuperior">Código da Vaga:  {{ vaga.dados.codigoControle }}</h4>
+        <div class="card-body">
+          <p class="card-title"> <strong>Vaga de:  </strong> {{ vaga.dados.tituloVaga }}</p>
+          <h6 class="card-title"> <strong>Setor:  </strong> {{ vaga.dados.areaInteresse }}</h6>
+          <h6 class="card-title"> <strong>Publicada por:  </strong> {{ vaga.rastro.email }}</h6>
+
+          <p class="card-text"> </p>
+
+        </div>
+        <div class="btn-group ">
+          <button type="button" class="btn botaoEditar bordaInferiorEsquerda" (click)="editarVaga(vaga)" ><span class="fas fa-edit"></span>Editar</button>
+          <button type="button" class="btn botaoExcluir bordaInferiorDireita" (click)="openModalExcluir(modalExcluir, vaga.uid)" ><span class="fas fa-trash-alt mx-2"></span>Excluir</button>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<!-- <div class="card">
+  <div class="card-body borda">
+    <h5 class="titulo">Lista de Vagas</h5>
+    <section style="overflow: auto; height: 353px">
+      <table class="table">
+        <thead class="text-center">
+          <th>Cod.</th>
+          <th>Vaga</th>
+          <th>Descrição</th>
+          <th>Tipo</th>
+          <!-- <th>Reg.</th>
+          <th>H.E</th>
+          <th>H.S</th>
+          <th>Endereço</th>
+          <th>Responsabilidades</th>
+          <th>Requisitos</th>
+          <th>Req. Desejaveis</th>
+          <th>Setor</th>
+          <th>Criacao</th>
+          <th>Atualizacao</th>
+          <th>Contratacao</th> -->
+        <!--</thead>
+        <tbody>
+          <tr *ngFor="let vaga of vagas">
+
+            <td>{{ vaga.dados.tituloVaga }}</td>
+            <td>{{ vaga.dados.descricao }}</td>
+            <td>{{ vaga.dados.tipoContratacao }}</td>
+            <!-- <td>{{vaga.dados.vinculo}}</td>
+          <td>{{vaga.dados.jornada_Inicio}}</td>
+          <td>{{vaga.dados.jornada_Fim}}</td>
+          <td>{{vaga.dados.localizacao}}</td>
+          <td>{{vaga.dados.responsabilidades}}</td>
+          <td>{{vaga.dados.requisitos}}</td>
+          <td>{{vaga.dados.reqDesejaveis}}</td>
+          <td>{{vaga.dados.areaInteresse}}</td> -->
+
+            <!-- <td>{{vaga.dados.dataCriacao}}</td>
+          <td>{{vaga.dataAtualizacao}}</td>
+          <td>{{vaga.dataContratacao}}</td> -->
+
+            <!-- <td><i (click)="openModalEditVagas(template, vaga)" class="fas fa-edit text-info"></i> -->
+            <!-- <td><i (click)="editarVaga(vaga)" class="fas fa-edit text-info"></i> -->
+            <!--<td>
+              <i (click)="editarVaga(vaga)" class="fas fa-edit text-info"></i>
+              <i
+                (click)="openModalExcluir(modalExcluir, vaga.uid)"
+                class="fas fa-trash-alt text-danger mx-2"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div> -->
+
+<!-- Modal -->
+<ng-template #template>
+  <app-form-vagas></app-form-vagas>
+</ng-template>
+
+<!-- Modão de confirmação de exclusão de vaga -->
+<ng-template #modalExcluir>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir ?</p>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm me-2"
+      (click)="naoExcluir()"
+    >
+      {{ messageBotao2 }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm me-2"
+      (click)="simExcluir()"
+    >
+      {{ messageBotao1 }}
+    </button>
+  </div>
+</ng-template>

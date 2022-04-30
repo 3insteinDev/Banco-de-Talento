@@ -1,0 +1,140 @@
+<!-- <app-sidebar-menu></app-sidebar-menu> -->
+<app-header></app-header>
+<div class="container mt-3 borda">
+  <h2 class="text-center m-5">Gestão de Administradores</h2>
+
+  <div class="d-flex justify-content-around">
+    <!-- Ao acionar um botão de conceder permissão mostra a lista de users e um botao pra "virar adm", abre o modal pra confirmar e ok -->
+    <button class="btn btn-outline-success" (click)="hideConceder()">
+      Lista de Usuários para Conceder Permissão
+    </button>
+    <!-- Ao acionar um botão de retirar permissão mostra a lista de admins e um botão pra "virar adm", abre o modal pra confirmar e ok -->
+    <button class="btn btn-outline-danger" (click)="hideRetirar()">
+      Lista de Administradores para Retirar Permissão
+    </button>
+  </div>
+
+  <div class="col-7 card start mt-3 hide alinhaCentralizado" #concederPermissao>
+    <h4 class="text-center m-3">Lista de Usuários</h4>
+    <table class="table">
+      <thead>
+        <th class="text-center">Email</th>
+        <th class="text-center">Conceder Permissão?</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.email }}</td>
+          <td class="text-center">
+            <i
+              class="fas fa-user-plus fs-5"
+              style="color: green; cursor: pointer"
+              (click)="makeAdmin(usuario.uid, usuario.email)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-7 card start mt-3 hide alinhaCentralizado" #retirarPermissao>
+    <h4 class="text-center m-3">Lista de Administradores</h4>
+
+    <table class="table">
+      <thead>
+        <th class="text-center">Email</th>
+        <th class="text-center">Retirar Permissão?</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of administradores">
+          <td>{{ admin.email }}</td>
+          <td class="text-center">
+            <i
+              class="fas fa-user-times fs-5"
+              style="color: red; cursor: pointer"
+              (click)="makeUser(admin.uid, admin.email)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--/////---- Modal Conceder ----/////-->
+<ng-template #modal_Conceder>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModalConceder }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelarModal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaConcederModal()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal Retirar ----/////-->
+<ng-template #modal_Retirar>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModalRetirar }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelarModal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaRetirarModal()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal Confirma Ação----///// -->
+<ng-template #modal_confirma>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_confirma }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelarModal()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>

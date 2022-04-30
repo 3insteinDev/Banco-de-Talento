@@ -1,0 +1,107 @@
+<!-- <app-sidebar-menu></app-sidebar-menu> -->
+<app-header></app-header>
+<div class="home_content" #dashVagas>
+  <div class="container mt-3 borda">
+    <a routerLink="/adm/dash/vagas" class="btn btn-outline-dark">
+      <span class="fas fa-arrow-circle-left"></span> Voltar
+    </a>
+    <h3 class="text-center m-3">Lista de Candidatos da Vaga:</h3>
+    <h2 class="text-center mb-3">{{ tituloVaga }}</h2>
+
+    <table class="table">
+      <thead>
+        <th colspan="2">Email</th>
+        <th>Area de Interesse</th>
+        <th>Pretensão Salarial</th>
+        <th>SoulMatch</th>
+        <th>Ver Mais</th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let candidato of candidatos"
+          [ngClass]="
+            candidato.statusEmail
+              ? 'emailEnviado'
+              : candidato.match < 60
+              ? 'matchMenor60'
+              : 'matchMaior60'
+          "
+        >
+          <td>
+            <i
+              class="fas fa-paper-plane icon-email"
+              (click)="
+                mandarEmail(
+                  candidato.dados.email,
+                  candidato.dados.nome,
+                  candidato.uid
+                )
+              "
+            ></i>
+          </td>
+          <td>
+            {{ candidato.dados.email }}
+          </td>
+          <td>{{ candidato.dados.areaInteresse }}</td>
+          <td ng>{{ candidato.dados.pretensao | currency: "BRL" }}</td>
+          <td>{{ candidato.match }}% de SoulMatch</td>
+          <td>
+            <i
+              class="fas fa-eye fs-4 icon-view"
+              (click)="visualizarCandidato(candidato.uid)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #confirmaEmail>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="fechaModal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmarEmail()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #emailEnviado>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="fechaModal()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>

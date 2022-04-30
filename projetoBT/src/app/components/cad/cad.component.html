@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ProjetoBT</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./cad.component.css" type="text/css" />
+    <!-- <link rel="stylesheet" href=" style.css" /> -->
+  </head>
+
+  <body>
+    <header class="container-fluid dale">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img class="logoheader"
+              src="../../../assets/img/sj-logo_2.svg"
+              alt=""
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  routerLink="/home"
+                  >Home</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="logo-container">
+        <img src="../../../assets/img/sj-logo_2.svg" alt="" />
+      </div>
+      <div class="login-container">
+        <h2>Novo Cadastro</h2>
+        <h4>Por favor, insira um email e senha válidos</h4>
+        <form [formGroup]="formCadastro" (ngSubmit)="signUp()">
+          <input
+            class="inpt"
+            type="text"
+            placeholder="nome@email.com"
+            formControlName="email"
+            name="email"
+            [class.valido]="this.formCadastro.get('email')?.valid"
+            [class.invalido]="
+              this.formCadastro.get('email')?.invalid &&
+              this.formCadastro.get('email')?.touched
+            "
+          />
+
+          <input
+            class="inpt form-group has-feedback"
+            [type]="fieldTextType ? 'text' : 'password'"
+            placeholder="Senha"
+            formControlName="senha"
+            name="senha"
+            [class.valido]="this.formCadastro.get('senha')?.valid"
+            [class.invalido]="
+              this.formCadastro.get('senha')?.invalid &&
+              this.formCadastro.get('senha')?.touched
+            "
+          />
+          <div class="iconEye">
+            <div *ngIf="fieldTextType; else hide">
+              <i class="fa fa-eye-slash" (click)="toggleType()"></i>
+            </div>
+            <ng-template #hide>
+              <i class="fa fa-eye" (click)="toggleType()"></i>
+            </ng-template>
+          </div>
+
+          <input
+            class="inpt"
+            [type]="fieldTextType ? 'text' : 'password'"
+            placeholder="Confirme sua senha"
+            formControlName="senhaCheck"
+            name="senhaCheck"
+            [class.valido]="this.formCadastro.get('senhaCheck')?.valid"
+            [class.invalido]="
+              this.formCadastro.get('senhaCheck')?.invalid &&
+              this.formCadastro.get('senhaCheck')?.touched
+            "
+          />
+          <div class="iconEye">
+            <div *ngIf="fieldTextType; else hide">
+              <i class="fa fa-eye-slash" (click)="toggleType()"></i>
+            </div>
+            <ng-template #hide>
+              <i class="fa fa-eye" (click)="toggleType()"></i>
+            </ng-template>
+          </div>
+          <div class="termos">
+            <input
+              type="checkbox"
+              formControlName="termos"
+              name="termos"
+              [class.valido]="this.formCadastro.get('termos')?.valid"
+              [class.invalido]="
+                this.formCadastro.get('termos')?.invalid &&
+                this.formCadastro.get('termos')?.touched
+              "
+            />
+            <h6>Li e Concordo com os Termos.</h6>
+          </div>
+
+          <button class="btnL" type="submit" [disabled]="!formCadastro.valid">
+            Cadastrar
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <footer id="footer">
+      <div class="container-fluid">
+        <img
+          src="../../../assets/img/sj-logo_2.svg"
+          alt=""
+        />
+        <p class="my-4">SOULCODE ACADEMY 2022</p>
+        <p class="mb-4">
+          Rua Helena, 235 Conj 111, 11ª andar - Vila Olímpia - São Paulo/SP -
+          CEP: 04552-050
+        </p>
+        <div>
+          <ul class="soc-container">
+            <li>
+              <a
+                class="fab fa-facebook-f icone"
+                href="https://www.facebook.com/SoulCodeAcademy"
+              ></a>
+            </li>
+            <li>
+              <a
+                class="fab fa-twitter icone"
+                href="https://twitter.com/SoulCodeAcademy"
+              ></a>
+            </li>
+            <li>
+              <a
+                class="fab fa-linkedin-in icone"
+                href="https://www.linkedin.com/company/soulcodebrasil/"
+              ></a>
+            </li>
+            <li>
+              <a
+                class="fab fa-instagram icone"
+                href="http://www.instagram.com/soulcodeacademy"
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

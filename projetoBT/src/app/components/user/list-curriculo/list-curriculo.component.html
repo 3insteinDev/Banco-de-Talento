@@ -1,0 +1,112 @@
+<!-- <app-sidebar-menu></app-sidebar-menu> -->
+<app-header></app-header>
+<div class="home_content" #listCurriculo>
+  <div class="card">
+    <div class="card-body borda">
+      <h3 class="titulo text-center">
+        Lista de Candidatos com Currículo Ativo
+      </h3>
+      <section style="overflow: auto; height: 70vh">
+        <!--Para pesquisar
+        Pipe, com filtro OrderBy
+          Pipe, upperCase
+          ng-pattern
+          ng-repeat-->
+
+        <div class="container">
+          <div class="d-flex w-100 m-3">
+            <form [formGroup]="formPesquisa">
+              <div class="row">
+                <!-- <div class="col-4">
+                  <input type="text" class="form-control m-3" formControlName="campoPesquisado" id="busca"
+                    placeholder="Pesquisar Candidato" />
+                </div>
+                <div class="col-2">
+                  <i class="fas fa-search-plus icon-pesquisa fs-4 m-3" (click)="pesquisar()"></i>
+                </div> -->
+                <div class="col-12">
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pesqNome" value="curriculo.dados.nome"
+                      formControlName="campoRadio" name="campoRadio" />
+                    <label class="form-check-label" for="pesqNome">Nome</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pesqEmail" value="email"
+                      formControlName="campoRadio" name="campoRadio" />
+                    <label class="form-check-label" for="pesqEmail">Email</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pesqAreaInteresse"
+                      value="curriculo.objetivos.areaInteresse" formControlName="campoRadio" name="campoRadio" />
+                    <label class="form-check-label" for="pesqAreaInteresse">Area Interesse</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pesqAreaAtuacao"
+                      value="curriculo.objetivos.areaAtuacao" formControlName="campoRadio" name="campoRadio" />
+                    <label class="form-check-label" for="pesqAreaAtuacao">Objetivo Profissional</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pesqPretensaoSalarial"
+                      value="curriculo.objetivos.pretensao" formControlName="campoRadio" name="campoRadio" />
+                    <label class="form-check-label" for="pesqPretensaoSalarial">Pretensão Salarial</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input type="text" class="form-control m-3" formControlName="campoPesquisado" id="busca"
+                      placeholder="Pesquisar Candidato" />
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <i class="fas fa-search-plus icon-pesquisa fs-4 m-3" (click)="pesquisar()"></i>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <table class="table">
+            <thead>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Área Interesse</th>
+              <th>Objetivo Profissional</th>
+              <th>Pretensão Salarial</th>
+              <th>Ver mais</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let candidato of candidatos">
+                <td>
+                  {{ candidato.curriculo?.dados?.nome }}
+                  {{ candidato.curriculo?.dados?.sobrenome }}
+                </td>
+                <td>{{ candidato.email }}</td>
+                <td>{{ candidato.curriculo?.objetivos?.areaInteresse }}</td>
+                <td>{{ candidato.curriculo?.objetivos?.areaAtuacao }}</td>
+                <td>
+                  {{
+                  candidato.curriculo?.objetivos?.pretensao | currency: "BRL"
+                  }}
+                </td>
+                <td>
+                  <i class="fas fa-eye fs-4 icon-view" (click)="visualizarCandidato(candidato.uid)"></i>
+                </td>
+                <td>
+                  <a href="https://api.whatsapp.com/send?phone=55{{
+                      candidato.curriculo?.contato?.telefone
+                    }}&text=Ol%C3%A1%2C%20sou%20representante%20da%20SoulCode%20Jobs.%20Podemos%20conversar%3F%20Atenciosamente%2C%20Thamires."
+                    target="_blank" class="fab fa-whatsapp fs-4 text-decoration-none" style="color: green"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+

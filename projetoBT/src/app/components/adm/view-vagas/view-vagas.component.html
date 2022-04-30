@@ -1,0 +1,40 @@
+<!-- <app-sidebar-menu></app-sidebar-menu> -->
+<app-header></app-header>
+<div class="container mt-3">
+  <div *ngIf="listaVagas; else novaVaga">
+    <div class="row mt-2">
+      <h2 class="text-center">Editar Vagas</h2>
+
+      <div class="container d-flex justify-content-end">
+      <!-- <div class="container d-flex justify-content-center"> -->
+        <button class="btn btn-outline-dark" (click)="showCadastro()">
+          Nova Vaga
+        </button>
+      </div>
+
+      <div></div>
+      <div class="col-12 hide" #editarA>
+        <app-form-vagas></app-form-vagas>
+      </div>
+
+      <div class="col-12" #editarB>
+        <app-list-vagas></app-list-vagas>
+      </div>
+    </div>
+  </div>
+  <ng-template #novaVaga>
+    <div class="row mt-2">
+      <div class="d-grid d-md-flex justify-content-md-start m-4">
+        <button class="btn btn-outline-secondary" (click)="showLista()">
+          Voltar
+        </button>
+      </div>
+      <div class="col-12">
+        <app-form-vagas></app-form-vagas>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<!--
+<app-header></app-header>
+<app-list-vagas></app-list-vagas> -->

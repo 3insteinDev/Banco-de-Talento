@@ -1,0 +1,1545 @@
+<app-header></app-header>
+
+<div class="container card teste">
+  <!-- <div *ngIf="role == 'user' && curriculoAtivo == false; then message"></div> -->
+  <div
+    *ngIf="
+      role == 'user' && curriculoAtivo == false && cadastroAtivo == true;
+      then message
+    "
+  ></div>
+
+  <ng-template #message>
+    <div class="message">
+      <p>Para conseguir se candidatar é necessário informar os dados.</p>
+      <p>
+        Por favor, preencha os campos obrigatórios para darmos continuidade!
+      </p>
+    </div>
+  </ng-template>
+
+  <h2 class="text-center title">Meu Currículo</h2>
+
+  <!-- ProgressBar -->
+  <div class="row mgb">
+    <progressbar
+      [value]="preenchido"
+      type="success"
+      [striped]="true"
+      [animate]="true"
+      ><i>{{ preenchido }} / {{ total }}</i>
+    </progressbar>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <h4>Meu Login:</h4>
+      <!-- Campo somente leitura -->
+      <div class="row">
+        <!-- Email do usuário -->
+        <div class="col-lg-8 col-md-8 col-sm-8">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            readonly
+          />
+        </div>
+        <!-- User do usuário -->
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="roles"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Se a pessoa logada for usuário, abrir o template: #show - Cadastro de Currículo -->
+    <div *ngIf="role == 'user' && cadastroAtivo == true; then show"></div>
+
+    <!-- Cadastro de Curriculo -->
+    <ng-template #show>
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <!-- Campo Dados Pessoais -->
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              Dados Pessoais
+            </button>
+          </h2>
+
+          <div
+            id="flush-collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <!-- Campo Nome -->
+                  <label class="label" for="nome">Nome:* </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nome"
+                    placeholder="Digite seu nome"
+                    name="nome"
+                    (blur)="barraProgresso('nome')"
+                    [class.valido]="this.form.get('nome')?.valid"
+                    [class.invalido]="
+                      this.form.get('nome')?.invalid &&
+                      this.form.get('nome')?.touched
+                    "
+                  />
+                </div>
+
+                <!-- Campo Sobrenome -->
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                  <label class="label" for="sobrenome">Sobrenome:* </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="sobrenome"
+                    placeholder="Digite seu sobrenome"
+                    (blur)="barraProgresso('sobrenome')"
+                    name="sobrenome"
+                    [class.valido]="this.form.get('sobrenome')?.valid"
+                    [class.invalido]="
+                      this.form.get('sobrenome')?.invalid &&
+                      this.form.get('sobrenome')?.touched
+                    "
+                  />
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <!-- Campo Nome Social -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="nomeSocial"> Nome Social: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nomeSocial"
+                    placeholder="Como quer ser chamado?"
+                    name="nomeSocial"
+                  />
+                </div>
+
+                <!-- Campo Data de Nascimento -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="dataNascimento"
+                    >Data de Nascimento:*
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    formControlName="dataNascimento"
+                    name="dataNascimento"
+                    value="07-01-2022"
+                    min="01-01-2004"
+                    max="01-01-2100"
+                    (blur)="barraProgresso('dataNascimento')"
+                    [class.valido]="this.form.get('dataNascimento')?.valid"
+                    [class.invalido]="
+                      this.form.get('dataNascimento')?.invalid &&
+                      this.form.get('dataNascimento')?.touched
+                    "
+                  />
+                </div>
+
+                <!-- Campo CPF -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="cpf">CPF:* </label>
+                  <input
+                    type="text"
+                    name="cpf"
+                    class="form-control"
+                    formControlName="cpf"
+                    placeholder="___.___.___-__"
+                    maxlength="14"
+                    (blur)="barraProgresso('cpf')"
+                    [class.valido]="this.form.get('cpf')?.valid"
+                    [class.invalido]="
+                      this.form.get('cpf')?.invalid &&
+                      this.form.get('cpf')?.touched
+                    "
+                  />
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <!-- Nacionalidade -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="nacionalidade"
+                    >Nacionalidade:
+                  </label>
+                  <input
+                    type="text"
+                    name="nacionalidade"
+                    id="nacionalidade"
+                    formControlName="nacionalidade"
+                    class="form-control"
+                  />
+                </div>
+
+                <!-- Estado Civil -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="estadoCivil">Estado Civil:* </label>
+                  <select formControlName="estadoCivil" class="form-control">
+                    <option name="estadoCivil" value="">Selecione</option>
+                    <option name="estadoCivil" value="solteiro">
+                      Solteiro(a)
+                    </option>
+                    <option name="estadoCivil" value="casado">Casado(a)</option>
+                    <option name="estadoCivil" value="divorciado">
+                      Divorciado(a)
+                    </option>
+                    <option name="estadoCivil" value="viúvo">Viúvo(a)</option>
+                    <option name="estadoCivil" value="separado judicialmente">
+                      Separado(a) Judicialmente
+                    </option>
+                  </select>
+                </div>
+
+                <!-- CEP -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="cep">CEP:* </label>
+                  <input
+                    type="text"
+                    maxlength="9"
+                    name="cep"
+                    formControlName="cep"
+                    class="form-control"
+                    (blur)="barraProgresso('cep')"
+                    [class.valido]="this.form.get('cep')?.valid"
+                    [class.invalido]="
+                      this.form.get('cep')?.invalid &&
+                      this.form.get('cep')?.touched
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- INFORMAÇÕES DE CONTATO -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush002">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush02"
+              aria-expanded="false"
+              aria-controls="flush02"
+            >
+              Informações de Contato
+            </button>
+          </h2>
+          <div
+            id="flush02"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush002"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <!-- Telefone -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="telefone">Celular:* </label>
+                  <input
+                    type="text"
+                    name="telefone"
+                    formControlName="telefone"
+                    class="form-control"
+                    (blur)="barraProgresso('telefone')"
+                    placeholder="DDD + Celular"
+                    [class.valido]="this.form.get('telefone')?.valid"
+                    [class.invalido]="
+                      this.form.get('telefone')?.invalid &&
+                      this.form.get('telefone')?.touched
+                    "
+                  />
+                </div>
+
+                <!-- Perfil Linkedin -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="perfilLinkedin"
+                    >Perfil do Linkedin:
+                  </label>
+                  <input
+                    type="text"
+                    name="perfilLinkedin"
+                    formControlName="perfilLinkedin"
+                    class="form-control"
+                    id="perfilLinkedin"
+                  />
+                </div>
+
+                <!-- Portifólio -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="portfolio">Portfólio: </label>
+                  <input
+                    type="text"
+                    name="portfolio"
+                    formControlName="portfolio"
+                    class="form-control"
+                    id="portfolio"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OBJETIVOS -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush003">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush03"
+              aria-expanded="false"
+              aria-controls="flush03"
+            >
+              Objetivos
+            </button>
+          </h2>
+          <div
+            id="flush03"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush003"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <!-- Campo Área de Interesse -->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label class="label" for="areaInteresse"
+                    >Área de Interesse:*
+                  </label>
+                  <select
+                    name="areaInteresse"
+                    formControlName="areaInteresse"
+                    class="form-control"
+                    id="areaInteresse"
+                    (blur)="barraProgresso('areaInteresse')"
+                    [class.valido]="this.form.get('areaInteresse')?.valid"
+                    [class.invalido]="
+                      this.form.get('areaInteresse')?.invalid &&
+                      this.form.get('areaInteresse')?.touched
+                    "
+                  >
+                    <option name="areaInteresse" value="">Selecione</option>
+                    <option name="areaInteresse" value="indiferente">
+                      Indiferente
+                    </option>
+                    <option name="areaInteresse" value="setor administrativo">
+                      Setor Administrativo
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de artes e design"
+                    >
+                      Setor de Artes e Design
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de ciências biológicas e da terra"
+                      disabled="disabled"
+                    >
+                      Setor de Ciências Biológicas e da Terra
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de ciências sociais e humanas"
+                      disabled="disabled"
+                    >
+                      Setor de Ciências Sociais e Humanas
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de comunicação e informação"
+                    >
+                      Setor de Comunicação e Informação
+                    </option>
+                    <option name="areaInteresse" value="setor comercial">
+                      Setor Comercial
+                    </option>
+                    <option name="areaInteresse" value="setor conteúdo">
+                      Setor Conteúdo
+                    </option>
+                    <option name="areaInteresse" value="setor customer success">
+                      Setor Customer Success
+                    </option>
+                    <option name="areaInteresse" value="setor design e ux">
+                      Setor Design e UX
+                    </option>
+                    <option name="areaInteresse" value="setor educacional">
+                      Setor Educacional
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de engenharia"
+                      disabled="disabled"
+                    >
+                      Setor de Engenharia
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor especializado em prestação de serviços"
+                    >
+                      Setor Especializado em Prestação de Serviços
+                    </option>
+                    <option name="areaInteresse" value="setor de finanças">
+                      Setor de Finanças
+                    </option>
+                    <option name="areaInteresse" value="setor jurídico">
+                      Setor Jurídico
+                    </option>
+                    <option name="areaInteresse" value="setor logístico">
+                      Setor Logístico
+                    </option>
+                    <option name="areaInteresse" value="setor de marketing">
+                      Setor de Marketing
+                    </option>
+                    <option name="areaInteresse" value="setor de negócios">
+                      Setor de Negócios
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de produção"
+                      disabled="disabled"
+                    >
+                      Setor de Produção
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor de recursos humanos"
+                    >
+                      Setor de Recursos Humanos
+                    </option>
+                    <option
+                      name="areaInteresse"
+                      value="setor da saúde"
+                      disabled="disabled"
+                    >
+                      Setor da Saúde
+                    </option>
+                    <option name="areaInteresse" value="setor de tecnologia">
+                      Setor de Tecnologia
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Objetivo Profissional -->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label class="label" for="areaAtuacao"
+                    >Objetivo Profissional:
+                  </label>
+                  <input
+                    type="text"
+                    name="areaAtuacao"
+                    formControlName="areaAtuacao"
+                    class="form-control"
+                    id="areaAtuacao"
+                  />
+                </div>
+
+                <!-- Pretensão Salarial -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="pretensaoSalarial"
+                    >Pretensão Salarial:*
+                  </label>
+                  <input
+                    type="text"
+                    name="pretensaoSalarial"
+                    formControlName="pretensaoSalarial"
+                    class="form-control"
+                    id="pretensaoSalarial"
+                    (blur)="barraProgresso('pretensaoSalarial')"
+                    [class.valido]="this.form.get('pretensaoSalarial')?.valid"
+                    [class.invalido]="
+                      this.form.get('pretensaoSalarial')?.invalid &&
+                      this.form.get('pretensaoSalarial')?.touched
+                    "
+                  />
+                </div>
+
+                <!-- Indicação -->
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                  <label class="label" for="telefone">Possui Indicação? </label>
+                  <input
+                    type="email"
+                    name="indicacao"
+                    formControlName="indicacao"
+                    class="form-control"
+                    placeholder="email@soulcode.com"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMAÇÃO -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush004">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush04"
+              aria-expanded="false"
+              aria-controls="flush04"
+            >
+              Principal Formação Acadêmica
+            </button>
+          </h2>
+          <div
+            id="flush04"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush004"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <!-- Formação Acadêmica Nível -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="formacaoNivel">Nível:* </label>
+                  <select
+                    formControlName="formacaoNivel"
+                    name="formacaoNivel"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoNivel')"
+                    [class.valido]="this.form.get('formacaoNivel')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoNivel')?.invalid &&
+                      this.form.get('formacaoNivel')?.touched
+                    "
+                  >
+                    <option name="formacaoNivel" value="">Selecione</option>
+                    <option name="formacaoNivel" value="sem escolaridade">
+                      Sem escolaridade
+                    </option>
+                    <option name="formacaoNivel" value="fundamental">
+                      Fundamental
+                    </option>
+                    <option name="formacaoNivel" value="médio">Médio</option>
+                    <option name="formacaoNivel" value="técnico">
+                      Técnico
+                    </option>
+                    <option name="formacaoNivel" value="superior">
+                      Superior
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Formação Acadêmica Grau -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="formacaoGrau">Grau:* </label>
+                  <select
+                    formControlName="formacaoGrau"
+                    name="formacaoGrau"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoGrau')"
+                    [class.valido]="this.form.get('formacaoGrau')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoGrau')?.invalid &&
+                      this.form.get('formacaoGrau')?.touched
+                    "
+                  >
+                    <option name="formacaoGrau" value="">Selecione</option>
+                    <option name="formacaoGrau" value="não se aplica">
+                      Não se aplica
+                    </option>
+                    <option name="formacaoGrau" value="tecnologo">
+                      Tecnólogo
+                    </option>
+                    <option name="formacaoGrau" value="graduacao">
+                      Graduação
+                    </option>
+                    <option name="formacaoGrau" value="pós graduação">
+                      Pós Graduação
+                    </option>
+                    <option name="formacaoGrau" value="mestrado">
+                      Mestrado
+                    </option>
+                    <option name="formacaoGrau" value="doutorado">
+                      Doutorado
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Formação Status -->
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <label class="label" for="formacaoStatus">Status:* </label>
+                  <select
+                    formControlName="formacaoStatus"
+                    class="form-control"
+                    name="formacaoStatus"
+                    (blur)="barraProgresso('formacaoStatus')"
+                    [class.valido]="this.form.get('formacaoStatus')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoStatus')?.invalid &&
+                      this.form.get('formacaoStatus')?.touched
+                    "
+                  >
+                    <option name="formacaoStatus" value="">Selecione</option>
+                    <option name="formacaoStatus" value="não se aplica">
+                      Não se aplica
+                    </option>
+                    <option name="formacaoStatus" value="incompleto">
+                      Incompleto
+                    </option>
+                    <option name="formacaoStatus" value="andamento">
+                      Andamento
+                    </option>
+                    <option name="formacaoStatus" value="completo">
+                      Completo
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Formação Curso -->
+              <div class="row mb-2">
+                <div class="col">
+                  <label class="label" for="formacaoCurso">Curso:* </label>
+                  <input
+                    type="text"
+                    name="formacaoCurso"
+                    formControlName="formacaoCurso"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoCurso')"
+                    [class.valido]="this.form.get('formacaoCurso')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoCurso')?.invalid &&
+                      this.form.get('formacaoCurso')?.touched
+                    "
+                  />
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label class="label" for="formacaoInstituicao"
+                    >Instituição de Ensino:*
+                  </label>
+                  <input
+                    type="text"
+                    name="formacaoInstituicao"
+                    formControlName="formacaoInstituicao"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoInstituicao')"
+                    [class.valido]="this.form.get('formacaoInstituicao')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoInstituicao')?.invalid &&
+                      this.form.get('formacaoInstituicao')?.touched
+                    "
+                  />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <label class="label" for="formacaoInicio"
+                    >Data de Início:*
+                  </label>
+                  <input
+                    type="date"
+                    name="formacaoInicio"
+                    formControlName="formacaoInicio"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoInicio')"
+                    [class.valido]="this.form.get('formacaoInicio')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoInicio')?.invalid &&
+                      this.form.get('formacaoInicio')?.touched
+                    "
+                  />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <label class="label" for="formacaoFim">Data de Fim:* </label>
+                  <input
+                    type="date"
+                    name="formacaoFim"
+                    formControlName="formacaoFim"
+                    class="form-control"
+                    (blur)="barraProgresso('formacaoFim')"
+                    [class.valido]="this.form.get('formacaoFim')?.valid"
+                    [class.invalido]="
+                      this.form.get('formacaoFim')?.invalid &&
+                      this.form.get('formacaoFim')?.touched
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIÊNCIA -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush005">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush05"
+              aria-expanded="false"
+              aria-controls="flush05"
+            >
+              Última Experiência Profissional
+            </button>
+          </h2>
+          <div
+            id="flush05"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush005"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>Possui Experiência?</p>
+                  <span class="me-3">
+                    <input
+                      type="radio"
+                      name="experiencia"
+                      formControlName="experiencia"
+                      value="SIM"
+                      id="experienciaSim"
+                      (focus)="valorExperiencia()"
+                    />
+                    <label class="label" for="experiencia">Sim</label>
+                  </span>
+                  <span class="me-3">
+                    <input
+                      type="radio"
+                      name="experiencia"
+                      formControlName="experiencia"
+                      value="NÃO"
+                      id="experienciaNao"
+                      (focus)="valorExperiencia()"
+                    />
+                    <label class="label" for="experiencia">Não</label>
+                  </span>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                  <label class="label" for="experienciaEmpresa"
+                    >Empresa:
+                  </label>
+                  <input
+                    type="text"
+                    name="experienciaEmpresa"
+                    id="experienciaEmpresa"
+                    formControlName="experienciaEmpresa"
+                    class="form-control"
+                    [readonly]="!valorRadioExperiencia"
+                  />
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label class="label" for="experienciaCargo">Cargo: </label>
+                  <input
+                    type="text"
+                    name="experienciaCargo"
+                    formControlName="experienciaCargo"
+                    class="form-control"
+                    [readonly]="!valorRadioExperiencia"
+                  />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <label class="label" for="experienciaInicio"
+                    >Data de Início:
+                  </label>
+                  <input
+                    type="date"
+                    name="experienciaInicio"
+                    formControlName="experienciaInicio"
+                    class="form-control"
+                    [readonly]="!valorRadioExperiencia"
+                  />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <label class="label" for="experienciaFim"
+                    >Data de Fim:
+                  </label>
+                  <input
+                    type="date"
+                    name="experienciaFim"
+                    formControlName="experienciaFim"
+                    class="form-control"
+                    [readonly]="!valorRadioExperiencia"
+                  />
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col">
+                  <label class="label" for="experienciaDescricao"
+                    >Descrição das Atividades:</label
+                  >
+                  <textarea
+                    type="text"
+                    name="experienciaDescricao"
+                    formControlName="experienciaDescricao"
+                    class="form-control"
+                    [readonly]="!valorRadioExperiencia"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPETÊNCIAS -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush006">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush06"
+              aria-expanded="false"
+              aria-controls="flush06"
+            >
+              Competências
+            </button>
+          </h2>
+          <div
+            id="flush06"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush006"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                  <label class="label mgb1" for="frameworks">Frameworks</label>
+
+                  <!-- CheckBox Frameworks - FormControl -->
+                  <div id="frameworks" class="row">
+                    <div
+                      class="checkbox"
+                      formArrayName="frameworks"
+                      *ngFor="
+                        let item of getFrameworksControls();
+                        let i = index
+                      "
+                    >
+                      <!-- Cada opção individual de framework -->
+                      <div>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" [formControlName]="i" />{{
+                            frameworks[i]
+                          }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                  <label class="label mgb1" for="linguagens">Linguagens</label>
+                  <div id="linguagens" class="row">
+                    <div
+                      class="checkbox"
+                      formArrayName="linguagens"
+                      *ngFor="
+                        let item of getLinguagensControls();
+                        let i = index
+                      "
+                    >
+                      <!-- Cada opção individual de framework -->
+                      <label class="checkbox-inline">
+                        <input type="checkbox" [formControlName]="i" />{{
+                          linguagens[i]
+                        }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                  <label class="label mgb1" for="tecnologias"
+                    >Tecnologias</label
+                  >
+                  <div id="tecnologias" class="row">
+                    <div
+                      class="checkbox"
+                      formArrayName="tecnologias"
+                      *ngFor="
+                        let item of getTecnologiasControls();
+                        let i = index
+                      "
+                    >
+                      <!-- Cada opção individual de framework -->
+                      <label class="checkbox-inline">
+                        <input type="checkbox" [formControlName]="i" />{{
+                          tecnologias[i]
+                        }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                  <label class="label mgb1" for="idiomas">Idiomas</label>
+                  <div id="linguagens" class="row">
+                    <div
+                      class="checkbox"
+                      formArrayName="idiomas"
+                      *ngFor="let item of getIdiomasControls(); let i = index"
+                    >
+                      <!-- Cada opção individual de framework -->
+                      <label class="checkbox-inline">
+                        <input type="checkbox" [formControlName]="i" />{{
+                          idiomas[i]
+                        }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIVERSIDADE -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush007">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush07"
+              aria-expanded="false"
+              aria-controls="flush07"
+            >
+              Diversidade
+            </button>
+          </h2>
+          <div
+            id="flush07"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush007"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row mb-2">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>Possui Deficiência?*</p>
+                  <span class="me-3">
+                    <input
+                      type="radio"
+                      name="diversidade"
+                      formControlName="diversidade"
+                      value="SIM"
+                      id="diversidadeSim"
+                      (blur)="barraProgresso('diversidade')"
+                      [class.valido]="this.form.get('diversidade')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidade')?.invalid &&
+                        this.form.get('diversidade')?.touched
+                      "
+                    />
+                    <label class="label" for="diversidade">Sim</label>
+                  </span>
+                  <span class="me-3">
+                    <input
+                      type="radio"
+                      name="diversidade"
+                      formControlName="diversidade"
+                      value="NÃO"
+                      id="diversidadeNao"
+                      [class.valido]="this.form.get('diversidade')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidade')?.invalid &&
+                        this.form.get('diversidade')?.touched
+                      "
+                    />
+                    <label class="label" for="diversidadeNao">Não</label>
+                  </span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>Utiliza algum pronome, qual?*</p>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      value="ELA/DELA"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      id="ela-dela"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="ela-dela">Ela/Dela</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      value="ELE/DELE"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      id="ele-dele"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="ele-dele">Ele/Dele</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      value="ELU/DELU"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      id="elu-delu"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="elu-delu">Elu/Delu</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      value="ELX/DELX"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      id="elx-delx"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="elx-delx">Elx/Delx</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      value="OUTROS"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      id="outros"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="outros">Outros</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadePronome"
+                      formControlName="diversidadePronome"
+                      (blur)="barraProgresso('diversidadePronome')"
+                      value="PREFIRO NÃO RESPONDER"
+                      id="prefiroNao"
+                      [class.valido]="
+                        this.form.get('diversidadePronome')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadePronome')?.invalid &&
+                        this.form.get('diversidadePronome')?.touched
+                      "
+                    />
+                    <label class="label" for="prefiroNao"
+                      >Prefiro não responder</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>Com qual identidade de gênero se identifica?*</p>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeIdentidade"
+                      formControlName="diversidadeIdentidade"
+                      (blur)="barraProgresso('diversidadeIdentidade')"
+                      value="CISGÊNERO"
+                      id="cisgenero"
+                      [class.valido]="
+                        this.form.get('diversidadeIdentidade')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeIdentidade')?.invalid &&
+                        this.form.get('diversidadeIdentidade')?.touched
+                      "
+                    />
+                    <label class="label" for="cisgenero">Cisgênero</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeIdentidade"
+                      formControlName="diversidadeIdentidade"
+                      (blur)="barraProgresso('diversidadeIdentidade')"
+                      value="transgenero"
+                      id="TRANSGÊNERO"
+                      [class.valido]="
+                        this.form.get('diversidadeIdentidade')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeIdentidade')?.invalid &&
+                        this.form.get('diversidadeIdentidade')?.touched
+                      "
+                    />
+                    <label class="label" for="transgenero">Transgênero</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeIdentidade"
+                      formControlName="diversidadeIdentidade"
+                      (blur)="barraProgresso('diversidadeIdentidade')"
+                      value="NÃO BINÁRIO"
+                      id="naoBinario"
+                      [class.valido]="
+                        this.form.get('diversidadeIdentidade')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeIdentidade')?.invalid &&
+                        this.form.get('diversidadeIdentidade')?.touched
+                      "
+                    />
+                    <label class="label" for="naoBinario">Não-Binário</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeIdentidade"
+                      formControlName="diversidadeIdentidade"
+                      (blur)="barraProgresso('diversidadeIdentidade')"
+                      value="OUTROS"
+                      id="identidadeOutros"
+                      [class.valido]="
+                        this.form.get('diversidadeIdentidade')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeIdentidade')?.invalid &&
+                        this.form.get('diversidadeIdentidade')?.touched
+                      "
+                    />
+                    <label class="label" for="identidadeOutros">Outros</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeIdentidade"
+                      formControlName="diversidadeIdentidade"
+                      (blur)="barraProgresso('diversidadeIdentidade')"
+                      value="PREFIRO NÃO RESPONDER"
+                      id="identidadePrefiroNao"
+                      [class.valido]="
+                        this.form.get('diversidadeIdentidade')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeIdentidade')?.invalid &&
+                        this.form.get('diversidadeIdentidade')?.touched
+                      "
+                    />
+                    <label class="label" for="identidadePrefiroNao"
+                      >Prefiro não responder</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p>Qual sua orientação sexual?*</p>
+
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="ASSEXUAL"
+                      id="Assexual"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="Assexual">Assexual</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="BISSEXUAL"
+                      id="Bissexual"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="Bissexual">Bissexual</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="HETEROSSEXUAL"
+                      id="Heterossexual"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="Heterossexual"
+                      >Heterossexual</label
+                    >
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="HOMOSSEXUAL"
+                      id="Homossexual"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="Homossexual">Homossexual</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="PANSEXUAL"
+                      id="Pansexual"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="Pansexual">Pansexual</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeOrientacao"
+                      formControlName="diversidadeOrientacao"
+                      (blur)="barraProgresso('diversidadeOrientacao')"
+                      value="PREFIRO NÃO RESPONDER"
+                      id="PREFIRO NÃO RESPONDER"
+                      [class.valido]="
+                        this.form.get('diversidadeOrientacao')?.valid
+                      "
+                      [class.invalido]="
+                        this.form.get('diversidadeOrientacao')?.invalid &&
+                        this.form.get('diversidadeOrientacao')?.touched
+                      "
+                    />
+                    <label class="label" for="orientacaoPrefiroNao"
+                      >Prefiro não responder</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p>Qual sua cor ou raça?*</p>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="AMARELA"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="Amarela"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="Amarela">Amarela</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="BRANCA"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="Branca"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="Branca">Branca</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="INDÍGENA"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="Indigena"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="Indigena">Indígena</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="PARDA"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="Parda"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="Parda">Parda</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="PRETA"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="Preta"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="Preta">Preta</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="diversidadeRaca"
+                      formControlName="diversidadeRaca"
+                      value="PREFIRO NÃO RESPONDER"
+                      (blur)="barraProgresso('diversidadeRaca')"
+                      id="racaPrefiroNao"
+                      [class.valido]="this.form.get('diversidadeRaca')?.valid"
+                      [class.invalido]="
+                        this.form.get('diversidadeRaca')?.invalid &&
+                        this.form.get('diversidadeRaca')?.touched
+                      "
+                    />
+                    <label class="label" for="racaPrefiroNao"
+                      >Prefiro não responder</label
+                    >
+                  </div>
+
+                  <!--  -->
+                  <button
+                    (click)="openModal(template)"
+                    type="button"
+                    class="btn btn-primary"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-info-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                      />
+                      <path
+                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+                      />
+                    </svg>
+                  </button>
+                  <span>Entenda o motivo das perguntas sobre diversidade.</span>
+                  <!--  -->
+
+                  <!-- Modal Diversidade -->
+                  <ng-template #template>
+                    <div class="modal-body text-center">
+                      <p>Candidato,</p>
+                      <p>
+                        Nossa empresa tem a diversidade como um VALOR e é
+                        importante unir não apenas pessoas que pensam de modo
+                        diferente, mas com vivência e lugar de fala para compor
+                        times capazes de somar propostas e analisar cenários sob
+                        prismas distintos, para tanto, buscamos a inclusão de
+                        pessoas por idade, gênero, orientação sexual, etnia e
+                        portadores de deficiência. Desse modo, potencializamos
+                        os resultados com equipes plurais, diversas e inclusivas
+                        em um ambiente totalmente acolhedor.
+                      </p>
+                      <button
+                        (click)="confirm()"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                      >
+                        Fechar</button
+                      >&nbsp;&nbsp;
+                    </div>
+                  </ng-template>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PLUS -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush007">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush08"
+              aria-expanded="false"
+              aria-controls="flush08"
+            >
+              Licenças e Certificados
+            </button>
+          </h2>
+          <div
+            id="flush08"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush008"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col">
+                  <label class="label" for="cursos">Cursos: </label>
+                  <input
+                    type="text"
+                    name="cursos"
+                    formControlName="cursos"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col">
+                  <label class="label" for="conquistas">Conquistas: </label>
+                  <input
+                    type="text"
+                    name="conquistas"
+                    formControlName="conquistas"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col">
+                  <label class="label" for="certificados">Certificados: </label>
+                  <input
+                    type="text"
+                    name="certificados"
+                    formControlName="certificados"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="clbtn" type="reset">Limpar</button>
+        <button
+          class="svbtn"
+          [disabled]="!form.valid"
+          (click)="saveCurriculo()"
+        >
+          Salvar
+        </button>
+      </div>
+    </ng-template>
+  </form>
+</div>
+
+<!-- Modal para Cadastro de Curriculo -->
+<ng-template #incluirCurriculo>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirm()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<app-footer></app-footer>

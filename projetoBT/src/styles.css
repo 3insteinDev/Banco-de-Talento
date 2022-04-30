@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Josefin Sans";
+}
+/* AQUI WPP */
+
+.wpp {
+  position: fixed;
+  width: 45px;
+  height: 45px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wpp:hover {
+  color: #fff;
+}
+/* AQUI FINALIZA WPP */
+
+/* AQUI COMEÇA DARKMODE */
+
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --btn-txt-color: white;
+  --btn-bg-color: rgb(11, 88, 160);
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #252222;
+  --btn-txt-color: rgb(46, 43, 43);
+  --btn-bg-color: rgb(20, 211, 195);
+}
+
+body {
+  background: var(--bkg-color);
+}
+
+h1,
+p {
+  color: var(--text-color);
+}
+
+/* AQUI FINALIZA DARKMODE */
+
+.borda {
+  border: 0.5px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#vLibras {
+  top: 74%;
+}

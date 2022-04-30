@@ -1,0 +1,40 @@
+/* Curriculo */
+.linha {
+  border: 1px solid 0, 126, 128;
+}
+
+.fundo {
+  background-color: rgb(0, 126, 128);
+}
+
+.textoCor {
+  color: white;
+}
+
+.tituloCor {
+  color: rgb(0, 126, 128);
+}
+
+.linhaCor {
+  background-color: white;
+}
+
+.centralizar {
+  text-align: center;
+}
+
+.ladoEsquerdo {
+  padding-left: 10px;
+}
+.borda {
+  border: 0.5px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}
+#curriculo{
+  margin: auto;
+  /* width: 790px; */
+  width: 100%;
+   
+}
+

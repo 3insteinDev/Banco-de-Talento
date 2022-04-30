@@ -1,0 +1,31 @@
+.matchMenor60 {
+  background-color: white;
+}
+
+.matchMaior60 {
+  background-color: rgba(141, 237, 103, 0.445);
+}
+
+.emailEnviado {
+  background-color: rgba(163, 163, 163, 0.603);
+}
+
+.icon-view {
+  cursor: pointer;
+}
+.icon-email {
+  cursor: pointer;
+}
+
+.icon-view:hover {
+  color: blue;
+}
+.icon-email:hover {
+  color: red;
+}
+
+.borda {
+  border: 0.5px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}

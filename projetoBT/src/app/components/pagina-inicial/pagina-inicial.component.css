@@ -1,0 +1,208 @@
+.modalText {
+  text-align: justify;
+  text-justify: distribute;
+}
+.fundoAzul {
+  background-color: #3cb4c4;
+}
+.fundoAmarelo {
+  background-color: #ffd646;
+}
+.fundoAzul1 {
+  background-color: #87bcc3;
+}
+
+/* Estilização do Card Vaga */
+.descricaoVaga {
+  padding: 15px;
+}
+
+/* Pre-Set-Zero */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* *********SCROLL*************** */
+*::-webkit-scrollbar {
+  width: 12px;
+  margin-right: 2px; /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00000050;
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #fff;
+}
+
+/* Style da div principal container */
+.principal-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 80%;
+  height: 100vh;
+  margin: auto;
+  padding: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+
+
+/* Style da div cards */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 40%;
+}
+
+
+/* Style da div visual */
+.visual-container {
+  overflow-y: auto;
+  width: 58%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.bordaVisualizador {
+  border: 1px solid #d4d2d0;
+}
+.content {
+  padding: 30px;
+}
+.card {
+  width: 100%;
+}
+
+h2, h6{
+  font-weight: 700;
+}
+
+h6{
+  text-decoration: underline;
+  text-align: start;
+}
+
+/* footer{
+  background: cadetblue;
+  height: 150px;
+  width: 100%;
+} */
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #d4d2d0;
+  background-color: #d5d6d850;
+  padding: 50px;
+}
+
+.title-container1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  border: 1px solid #d4d2d0;
+  background-color: #d5d6d850;
+  padding: 30px;
+}
+
+.title-container1 a {
+  align-self: flex-start;
+  justify-self: flex-end;
+}
+
+.p1 {
+  font-size: 0.8rem;
+}
+.cardVaga {
+  margin-bottom: 10px;
+}
+
+
+.botaoVerVaga, .botaoCadastrar{
+  background-color: #FFD646;
+  text-align:center;
+
+  border-radius: 25px;
+  font-size: 0.8rem;
+  padding: 2px 15px;
+  border: none;
+  margin-top: 8px;
+  color: #000;
+}
+
+
+.botaoVerVaga:hover, .botaoCadastrar:hover{
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+}
+
+.headerVaga{
+
+  background-color: #2d8894;
+  color: white;
+}
+.bodyVaga {
+  padding: 10px;
+}
+
+.capa {
+  width: 100%;
+}
+.imagem {
+  border: 1px solid #d4d2d0;
+}
+
+#topoMobile{
+ display: none;
+
+}
+
+/* *****************RESPONSIVIDADE****************** */
+
+@media (max-width: 800px) {
+
+
+.principal-container{
+  width:100%;
+  max-width:90%;
+  margin:auto;
+  display:list-item;
+  flex-direction: column-reverse;
+  /* height: auto; */
+}
+.visual-container{
+  width: 100%;
+}
+.cards-container{
+  display: flex;
+  width: 100%;
+}
+#topo{
+  display: none;
+}
+
+
+
+}
+@media (max-width: 500px) {
+  .principal-container {
+    max-width: 100%;
+    margin: auto;
+    padding-bottom: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}

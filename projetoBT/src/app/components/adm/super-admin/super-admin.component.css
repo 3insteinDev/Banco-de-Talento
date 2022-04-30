@@ -1,0 +1,18 @@
+.hide {
+  display: none;
+}
+
+.start {
+  left: 20vw;
+}
+
+.borda{
+  border: 1px solid gray;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.alinhaCentralizado{
+  margin:auto;
+  transform: translateX(-60%);
+}

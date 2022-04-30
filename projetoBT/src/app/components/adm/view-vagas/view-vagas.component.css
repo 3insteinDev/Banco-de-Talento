@@ -1,0 +1,26 @@
+.hide {
+  display: none;
+}
+
+.navSpace {
+  display: flex;
+  justify-content: space-between;
+}
+
+.borda{
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.centralizarBotao{
+  margin: auto;
+}
+
+@media (max-width: 990px) {
+  .navSpace {
+    flex-direction: column;
+  }
+  .navSpace ul {
+    align-self: flex-end;
+  }
+}

@@ -1,0 +1,20 @@
+[debug] [2022-01-07T20:20:46.068Z] ----------------------------------------------------------------------
+[debug] [2022-01-07T20:20:46.072Z] Command:       F:\ND\node.exe C:\Users\Acer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login --reauth
+[debug] [2022-01-07T20:20:46.072Z] CLI Version:   10.0.1
+[debug] [2022-01-07T20:20:46.072Z] Platform:      win32
+[debug] [2022-01-07T20:20:46.073Z] Node Version:  v12.20.0
+[debug] [2022-01-07T20:20:46.173Z] Time:          Fri Jan 07 2022 17:20:46 GMT-0300 (GMT-03:00)
+[debug] [2022-01-07T20:20:46.173Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-01-07T20:20:46.203Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=839648413&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2022-01-07T20:20:46.510Z] Error: spawn cmd ENOENT
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:268:19)
+    at onErrorNT (internal/child_process.js:470:16)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: An unexpected error has occurred.

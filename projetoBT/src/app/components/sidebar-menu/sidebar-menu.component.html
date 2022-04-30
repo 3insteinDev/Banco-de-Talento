@@ -1,0 +1,101 @@
+<div class="sidebar" #sidebar *ngIf="auth.user | async as user">
+  <div class="logo_content">
+    <div class="logo">
+      <i
+        ><img
+          src="../../../assets/img/soulcode.png"
+          alt=""
+          style="height: 28px"
+      /></i>
+      <!-- <div class="logo_name">SoulCode</div> -->
+    </div>
+    <i class="bx bx-menu" (click)="slide()" id="btn"></i>
+  </div>
+  <ul class="nav_list">
+    <li>
+      <i class="bx bx-search" (click)="slide()"></i>
+      <input type="text" placeholder="Search..." />
+      <span class="tooltip">Search</span>
+    </li>
+    <li>
+      <a routerLink="/home">
+        <i class="bx bx-grid-alt"></i>
+        <span class="links_name">Início</span>
+      </a>
+      <span class="tooltip">Início</span>
+    </li>
+    <li>
+      <a routerLink="/adm/dash/vagas">
+        <i class="bx bx-grid-alt"></i>
+        <span class="links_name">Candidaturas</span>
+      </a>
+      <span class="tooltip">Vagas com Candidaturas</span>
+    </li>
+    <li>
+      <a routerLink="/adm/viewVagas">
+        <i class="bx bx-user"></i>
+        <span class="links_name">Vagas</span>
+      </a>
+      <span class="tooltip">Nova Vaga, Editar Vaga</span>
+    </li>
+    <li>
+      <a routerLink="/adm/listUser">
+        <i class="bx bx-chat"></i>
+        <span class="links_name">Buscar Candidato</span>
+      </a>
+      <span class="tooltip">Procure um candidato com currículo ativo</span>
+    </li>
+    <!-- <li>
+      <a href="">
+        <i class="bx bx-pie-chart-alt-2"></i>
+        <span class="links_name">Analytics</span>
+      </a>
+      <span class="tooltip">Analytics</span>
+    </li>
+    <li>
+      <a href="">
+        <i class="bx bx-folder"></i>
+        <span class="links_name">File Manager</span>
+      </a>
+      <span class="tooltip">File Maneger</span>
+    </li>
+    <li>
+      <a href="">
+        <i class="bx bx-heart"></i>
+        <span class="links_name">Saved</span>
+      </a>
+      <span class="tooltip">Saved</span>
+    </li> -->
+    <li>
+      <a routerLink="/adm/dash/superAdmin">
+        <i class="bx bx-cog"></i>
+        <span class="links_name">Administradores</span>
+      </a>
+      <span class="tooltip">Gerir Admins</span>
+    </li>
+  </ul>
+  <div class="profile_content">
+    <div class="profile">
+      <div class="profile_details">
+        <!-- <img
+          src="https://avatars.githubusercontent.com/u/69441709?v=4"
+          alt=""
+        /> -->
+        <div class="name_job">
+          <div class="name">{{ user.email }}</div>
+          <div class="job" *ngIf="user.roles.superAdmin; else roleAdmin">
+            SuperAdmin
+          </div>
+          <ng-template #roleAdmin>
+            <div class="job">Admin</div>
+          </ng-template>
+        </div>
+      </div>
+      <i class="bx bx-log-out" id="log_out" (click)="auth.signOut()"></i>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="home_content">
+  <div class="text">Home Content</div>
+</div> -->

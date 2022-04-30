@@ -1,0 +1,220 @@
+<app-header ></app-header>
+<div></div>
+<!-- Container Principal onde conterá a div com os Cards de Vagas e a div com o Visualizador de Vaga  -->
+<div class="principal-container" #principal>
+  <!-- //////////////------Visualizador-----//////////// -->
+  <div class="visual-container" #visual>
+    <div class="imagem" *ngIf="inicial == true; else visualizador">
+      <img class="capa" src="../../../assets/img/capa.gif" />
+    </div>
+    <ng-template #visualizador>
+      <div class="title-container1">
+        <h2>{{ tituloVaga }}</h2>
+        <h2 id="topoMobile">{{ tituloVaga }}</h2>
+        <h6>Código da Vaga: {{ codigoControle }}</h6>
+        <div *ngIf="auth.user | async as user; else login">
+          <button
+            type="button"
+            class="botaoCadastrar"
+            (click)="candidatura(vagaCandidatura, user)"
+          >
+            Candidatar
+          </button>
+        </div>
+        <ng-template #login>
+          <a class="botaoCadastrar text-decoration-none" routerLink="/login"
+            >Candidatar</a
+          >
+        </ng-template>
+      </div>
+      <div class="content">
+        <h6>Descrição da Vaga:</h6>
+        <p>{{ descricao }}</p>
+        <br />
+        <h6>Tipo de Contratação:</h6>
+        <p>{{ tipoContratacao }}</p>
+        <br />
+        <h6>Vinculo Empregatício:</h6>
+        <p>{{ vinculo }}</p>
+        <br />
+        <h6>Horário de Trabalho:</h6>
+        <p>{{ jornada_Inicio }} às {{ jornada_Fim }}</p>
+        <br />
+        <h6>Localização:</h6>
+        <p>{{ localizacao }}</p>
+        <br />
+        <h6>Responsabilidades:</h6>
+        <p>{{ responsabilidades }}</p>
+        <br />
+        <h6>Requisitos:</h6>
+        <p>{{ reqDesejaveis }}</p>
+        <p>Área de Atuação: {{ areaInteresse }}</p>
+        <p>Frameworks: {{ frameworks }}</p>
+        <p>Idiomas: {{ idiomas }}</p>
+        <p>Linguagens: {{ linguagens }}</p>
+        <p>Tecnologias: {{ tecnologias }}</p>
+      </div>
+    </ng-template>
+  </div>
+  <!-- /////////////////////---Cards de Vagas --- /////////////// -->
+  <div class="cards-container">
+    <div class="title-container">
+      <h2>Vagas</h2>
+    </div>
+    <div class="card cardVaga" *ngFor="let vaga of vagas">
+      <div class="conjunto">
+        <div class="card-header p-2 text-center headerVaga">
+          <h6 class="card-title">{{ vaga.dados.tituloVaga }}</h6>
+        </div>
+        <div class="card-body bodyVaga">
+          <p class="card-text p1">Área: {{ vaga.dados.areaInteresse }}</p>
+          <p class="card-text p1">
+            Modalidade: {{ vaga.dados.tipoContratacao }}
+          </p>
+          <p class="card-text p1">Vaga publicada em 24/01/2022</p>
+          <h6 class="card-title">
+            Código da Vaga: {{ vaga.dados.codigoControle }}
+          </h6>
+          <button class="botaoVerVaga" (click)="verVaga(vaga)">Ver Vaga</button>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ///////////////////////---------------------Inicio Modais-----------------------////////////////////////// -->
+
+<!-- /////----Modal A----///// -->
+<ng-template #modal_A>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_A }}</p>
+    </div>
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_B()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_A()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal B ----/////-->
+<ng-template #modal_B>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_B }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_B()"
+      >
+        Fechar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="direcionaModal_B()"
+      >
+        Cadastrar
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal C ----/////-->
+<ng-template #modal_C>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_C }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_A()"
+      >
+        Fechar
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal Candidatar ----/////-->
+<ng-template #modal_Candidatar>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModalCandidatar }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-around p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="cancelarCandidatura_Modal()"
+      >
+        Não
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaCandidatura_Modal()"
+      >
+        Sim
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!--/////---- Modal Confirma Candidatura----///// -->
+<ng-template #modal_confirmaCandidatura>
+  <div class="p-3">
+    <div class="modal-header">
+      <h4 class="modal-title">Aviso</h4>
+    </div>
+    <div class="modal-body modalText p-3">
+      <p class="fs-6">{{ msgModal_confirmaCandidatura }}</p>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-md p-2"
+        (click)="confirmaModal_B()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- ///////////////////////-----------------------Fim Modais------------------------////////////////////////// -->
+
+<app-footer></app-footer>
